@@ -1,6 +1,6 @@
 # Feather Scan 🦚  
 
-A secure and user-friendly password manager built with React and Vite.  
+Feather Scan is an AI-powered web app that identifies bird species from uploaded photos and provides detailed information about them.  
 
 ## 🚀 Getting Started  
 
@@ -12,5 +12,5 @@ A secure and user-friendly password manager built with React and Vite.
 Clone the repository and install dependencies:  
 ```sh
 git clone <repository_url>
-cd password-manager-ui
+cd feather-scan
 npm install
