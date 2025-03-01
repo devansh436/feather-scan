@@ -12,5 +12,5 @@ Feather Scan is an AI-powered web app that identifies bird species from uploaded
 Clone the repository and install dependencies:  
 ```sh
 git clone <repository_url>
-cd feather-scan
+cd bird-species
 npm install
