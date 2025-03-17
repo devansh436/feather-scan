@@ -5,14 +5,14 @@ import Result from "../components/Result";
 import { useState } from "react";
 
 function UploadPage() {
-  const [result, setResult] = useState(null);
-
+  const [geminiResult, setGeminiResult] = useState("");
+  
   return (
     <div data-bs-theme="light" className="container-fluid px-4 bg-light">
-      <div className="row">
-        <div className="col"><UploadBox /></div>
-        <div className="col"><Result result={result} /></div>
-      </div>
+      <div className="container"> 
+        <div className="row"><UploadBox setGeminiResult={setGeminiResult}/></div>
+        <div className="row"><Result geminiResult={geminiResult} /></div>
+        </div>
       <div className="row">
         <BirdInfo />
       </div>
