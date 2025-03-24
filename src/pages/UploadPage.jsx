@@ -8,7 +8,7 @@ function UploadPage() {
   const [geminiResult, setGeminiResult] = useState("");
   
   return (
-    <div data-bs-theme="light" className="container-fluid px-4 bg-light">
+    <div className="container-fluid px-4 bg-light">
       <div className="container"> 
         <div className="row"><UploadBox setGeminiResult={setGeminiResult}/></div>
         <div className="row"><Result geminiResult={geminiResult} /></div>
