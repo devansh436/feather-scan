@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+
 function UploadBox({ setGeminiResult }) {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -25,15 +26,14 @@ function UploadBox({ setGeminiResult }) {
     setLoading(true);
     setMessage("");
 
-    // const HOST_URL = import.meta.env.VITE_HOST_URL;
-    const HOST_URL = "http://localhost"
+    const HOST_URL = import.meta.env.VITE_HOST_URL;
 
     try {
       const response = await fetch(`${HOST_URL}:3000/upload`, {
         method: "POST",
-        body: formData, 
+        body: formData,
       });
-      
+
       if (!response.ok) {
         throw new Error("Failed to upload image");
       }
@@ -55,6 +55,18 @@ function UploadBox({ setGeminiResult }) {
     }
   };
 
+  function handleDrop(event) {
+    event.preventDefault();
+    const droppedFile = event.dataTransfer.files[0];
+    if (droppedFile) {
+      setFile(droppedFile);
+      setMessage("");
+    }
+  }
+  function handleDragOver(event) {
+    event.preventDefault();
+  }
+
   return (
     <div className="d-flex flex-column align-items-center p-5 w-100">
       <div
@@ -68,13 +80,24 @@ function UploadBox({ setGeminiResult }) {
           Upload Image
         </h1>
         <form onSubmit={handleFileSubmit} className="mt-4">
-          <label className="form-label fw-bold">Choose an image:</label>
-          <input
-            type="file"
-            onChange={handleFileChange}
-            className="form-control shadow-sm"
-            accept="image/*"
-          />
+          <label className="form-label fw-bold"> Choose an image or drag and drop:</label>
+          <div
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+            className="border border-secondary rounded p-3 text-center"
+            style={{ cursor: "pointer" }}
+          >
+            <input
+              id="fileInput"
+              type="file"
+              onChange={handleFileChange}
+              className="d-none"
+              accept="image/*"
+            />
+            <label htmlFor="fileInput" className="w-100" style= {{"cursor" : "pointer"}}>
+              {file ? file.name : "Click to select or drop an image"}
+            </label>
+          </div>
           <button
             type="submit"
             className="btn btn-outline-primary w-100 mt-3 shadow-sm"
@@ -94,7 +117,9 @@ function UploadBox({ setGeminiResult }) {
         </form>
 
         {message && (
-          <div className={`alert alert-${alertColor} mt-4 text-center`}>{message}</div>
+          <div className={`alert alert-${alertColor} mt-4 text-center`}>
+            {message}
+          </div>
         )}
       </div>
     </div>
