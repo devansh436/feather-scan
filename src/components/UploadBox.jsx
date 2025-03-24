@@ -5,6 +5,7 @@ function UploadBox({ setGeminiResult }) {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [alertColor, setAlertColor] = useState("danger");
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -24,14 +25,15 @@ function UploadBox({ setGeminiResult }) {
     setLoading(true);
     setMessage("");
 
-    const HOST_URL = import.meta.env.VITE_HOST_URL;
+    // const HOST_URL = import.meta.env.VITE_HOST_URL;
+    const HOST_URL = "http://localhost"
 
     try {
-      const response = await fetch(`${HOST_URL}/upload`, {
+      const response = await fetch(`${HOST_URL}:3000/upload`, {
         method: "POST",
-        body: formData,
+        body: formData, 
       });
-
+      
       if (!response.ok) {
         throw new Error("Failed to upload image");
       }
@@ -41,6 +43,7 @@ function UploadBox({ setGeminiResult }) {
       if (data.answer) {
         setGeminiResult(data.answer); // ✅ Send answer to Result.jsx
         setMessage("Image processed successfully!");
+        setAlertColor("success");
       } else {
         setMessage("No response from server.");
       }
@@ -91,7 +94,7 @@ function UploadBox({ setGeminiResult }) {
         </form>
 
         {message && (
-          <div className="alert alert-info mt-4 text-center">{message}</div>
+          <div className={`alert alert-${alertColor} mt-4 text-center`}>{message}</div>
         )}
       </div>
     </div>

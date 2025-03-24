@@ -1,3 +1,5 @@
+import parse from "html-react-parser";
+
 function Result({ geminiResult }) {
   return (
     <div
@@ -5,33 +7,28 @@ function Result({ geminiResult }) {
       style={{
         width: "60%",
         margin: "auto",
-        background: "linear-gradient(110deg, green, limegreen)",
+        background: "#119A11",
         color: "white",
-        borderRadius: "15px",
+        borderRadius: "20px",
         overflow: "hidden",
-        boxShadow: "0 8px 20px rgba(0, 128, 0, 0.3)",
       }}
     >
-      <div className="card-body text-center" style={{ display: geminiResult ? "block" : "none" }}>
-        <h3 className="fw-bold text-uppercase position-relative d-inline-block px-3">
-          <span className="px-3">Result</span>
-          <div
-            style={{
-              position: "absolute",
-              bottom: "-5px",
-              left: "50%",
-              width: "80%",
-              height: "4px",
-              backgroundColor: "white",
-              transform: "translateX(-50%)",
-              opacity: "0.8",
-            }}
-          ></div>
+      <div className="card-body" style={{ display: geminiResult ? "block" : "none" }}>
+        <h3 className="fw-bold text-center" style={{
+          fontSize: "2rem",
+          marginBottom: "1rem",
+          letterSpacing: "1px",
+        }}>
+          Result
         </h3>
 
-        <p className="mt-4 fs-5 fw-semibold px-4" style={{ lineHeight: "1.6" }}>
-          {geminiResult || "No result yet."}
-        </p>
+        <div className="mt-4 fs-5 fw-medium px-4" style={{
+          lineHeight: "1.8",
+          fontSize: "1.1rem",
+          color: "#E8F5E9"
+        }}>
+          {geminiResult ? parse(geminiResult) : "No result yet."}
+        </div>
       </div>
     </div>
   );
