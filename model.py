@@ -3,8 +3,6 @@ from PIL import Image
 import torch
 import os
 
-# os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
-
 # Load model and processor
 processor = AutoImageProcessor.from_pretrained("chriamue/bird-species-classifier", use_fast=True)
 model = AutoModelForImageClassification.from_pretrained("chriamue/bird-species-classifier")
@@ -13,7 +11,7 @@ model.to(device)
 
 def predict(image_path):
     try:
-        # Load and preprocess image from path
+        # Load and preprocess image
         image = Image.open(image_path).convert("RGB")
         inputs = processor(images=image, return_tensors="pt").to(device)
 
@@ -21,12 +19,15 @@ def predict(image_path):
         with torch.no_grad():
             outputs = model(**inputs)
             logits = outputs.logits
-            predicted_label = torch.argmax(logits, dim=-1)
+            probabilities = torch.nn.functional.softmax(logits, dim=-1)
+            predicted_label = torch.argmax(probabilities, dim=-1)
+            confidence = probabilities[0, predicted_label].item()
 
         # Get class label
-        label = model.config.id2label[predicted_label.item()]
-        print(label)
-        return label
+        label = model.config.id2label[predicted_label.item()].title()
+        print(f"Label: {label}")
+        print(f"Confidence: {confidence * 100:.2f}%")
+        return label, confidence
     except Exception as e:
         print(f"Error during prediction: {e}")
-        return None
+        return None, None
