@@ -1,0 +1,13 @@
+flask
+tensorflow
+torch
+transformers
+numpy
+pandas
+opencv-python
+pillow
+requests
+fastapi
+uvicorn
+scikit-learn
+matplotlib
