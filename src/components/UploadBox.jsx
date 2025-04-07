@@ -74,8 +74,7 @@ function UploadBox({ setGeminiResult }) {
         style={{ maxWidth: "500px", width: "100%" }}
       >
         <h1
-          className="text-center text-white py-3 rounded"
-          style={{ background: "linear-gradient(120deg, green, limegreen)" }}
+          className="text-center text-white py-3 rounded bg-success"
         >
           Upload Image
         </h1>
