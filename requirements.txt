@@ -1,13 +1,5 @@
-flask
-tensorflow
 torch
 transformers
-numpy
-pandas
-opencv-python
 pillow
+numpy
 requests
-fastapi
-uvicorn
-scikit-learn
-matplotlib
