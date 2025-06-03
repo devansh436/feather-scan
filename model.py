@@ -1,7 +1,6 @@
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 from PIL import Image
 import torch
-import os
 
 # Load model and processor
 processor = AutoImageProcessor.from_pretrained("chriamue/bird-species-classifier", use_fast=True)
