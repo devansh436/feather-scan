@@ -26,10 +26,10 @@ function UploadBox({ setGeminiResult }) {
     setLoading(true);
     setMessage("");
 
-    const HOST_URL = import.meta.env.VITE_HOST_URL;
+    const HOST_URL = "https://bird-species-api-zcbo.onrender.com";
 
     try {
-      const response = await fetch(`${HOST_URL}:3000/upload`, {
+      const response = await fetch(HOST_URL, {
         method: "POST",
         body: formData,
       });
