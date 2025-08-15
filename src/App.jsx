@@ -1,5 +1,4 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import UploadPage from "./pages/UploadPage.jsx";
@@ -9,7 +8,7 @@ import About from "./pages/About.jsx";
 
 function App() {
   return (
-    <div style={{width: "100%"}}>
+    <div>
       <Router>
         <Routes>
           <Route path="/" element={<Home />}></Route>

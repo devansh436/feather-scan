@@ -7,7 +7,7 @@ function About() {
     return (
         <div style={{ backgroundColor: "#e8f5e9" }}>
             <Navbar />
-            <div className="container py-5">
+            <div className="container py-3">
                 <div className="text-center mb-5">
                     <h1 className="display-4 fw-bold text-success">About Feather Scan</h1>
                     <p className="lead text-muted">
@@ -20,26 +20,13 @@ function About() {
                     </div>
                 </div>
 
-                <div className="row g-4 py-5">
+                <div className="row g-4 justify-content-center">
                     <div className="col-md-6">
-                        <div className="card h-100 border-0 shadow-sm">
+                        <h2 className="text-success mb-4 text-center">How It Works</h2>
+                        <div className="card border-0 shadow-sm">
                             <div className="card-body p-4">
-                                <h3 className="card-title text-success mb-4">Our Mission</h3>
                                 <p className="card-text">
-                                    At Feather Scan, we're passionate about connecting people with the natural world. Our mission is to democratize bird identification through cutting-edge AI technology, making ornithology accessible to everyone from casual backyard bird watchers to professional researchers and conservationists.
-                                </p>
-                                <p className="card-text">
-                                    By removing the barriers to species identification, we hope to foster a deeper appreciation for avian biodiversity and contribute to global conservation efforts.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-6">
-                        <div className="card h-100 border-0 shadow-sm">
-                            <div className="card-body p-4">
-                                <h3 className="card-title text-success mb-4">How It Works</h3>
-                                <p className="card-text">
-                                    Our platform utilizes a deep learning convolutional neural network trained on over 3 million bird images. With just a single photo upload, our AI analyzes distinctive features like plumage patterns, beak shape, and size proportions to identify the species with remarkable accuracy.
+                                    Our platform utilizes a deep learning convolutional neural network trained on over 100k bird images. With just a single photo upload, our AI analyzes distinctive features like plumage patterns, beak shape, and size proportions to identify the species with remarkable accuracy.
                                 </p>
                                 <p className="card-text">
                                     Beyond identification, Feather Scan provides detailed information about habitat, migration patterns, conservation status, and bird calls for each species in our extensive database.
@@ -49,8 +36,8 @@ function About() {
                     </div>
                 </div>
 
-                <div className="row g-4 mb-5">
-                    <h2 className="text-center text-success mb-4">Key Features</h2>
+                <div className="row g-4 mb-5 mt-4">
+                    <h2 className="text-center text-success">Key Features</h2>
                     <div className="col-md-3">
                         <div className="card h-100 border-0 shadow-sm text-center">
                             <div className="card-body p-4">
@@ -58,7 +45,7 @@ function About() {
                                     <BiSolidBinoculars />
                                 </div>
                                 <h5 className="card-title">Instant Recognition</h5>
-                                <p className="card-text">Identify birds in under 2 seconds with our lightning-fast AI algorithm.</p>
+                                <p className="card-text">Identify birds in under 5 seconds with our lightning-fast AI algorithm.</p>
                             </div>
                         </div>
                     </div>
@@ -97,8 +84,8 @@ function About() {
                     </div>
                 </div>
 
-                <div className="row g-4 mb-5">
-                    <h2 className="text-center text-success mb-4">Technology Stack</h2>
+                <div className="row g-4 mb-5 mt-4">
+                    <h2 className="text-center text-success">Technology Stack</h2>
                     <div className="col-md-4">
                         <div className="card h-100 border-0 shadow-sm">
                             <div className="card-body p-4">
@@ -118,7 +105,7 @@ function About() {
                                 <h5 className="card-title text-success">Backend</h5>
                                 <ul className="list-unstyled">
                                     <li className="mb-2">• Python with FastAPI</li>
-                                    <li className="mb-2">• PyTorch for inference</li>
+                                    <li className="mb-2">• Express JS for request handling</li>
                                 </ul>
                             </div>
                         </div>
@@ -138,8 +125,8 @@ function About() {
                     </div>
                 </div>
 
-                <div className="row g-4 mb-5 d-flex justify-content-center">
-                    <h2 className="text-center  text-success mb-4">Meet the Team</h2>
+                <div className="row g-4 mb-5 d-flex justify-content-center mt-4">
+                    <h2 className="text-center  text-success">Meet the Team</h2>
                     <div className=" col-lg-3 col-md-6 mb-4">
                         <div className="card border-0 shadow-sm text-center">
                             <div className="card-body p-4">
@@ -147,10 +134,10 @@ function About() {
                                     <span className="h1 text-success m-0">DD</span>
                                 </div>
                                 <h5 className="card-title">Devansh Deshpande</h5>
-                                <p className="card-text text-muted mb-1">Full stack enjoyer</p>
+                                <p className="card-text text-muted mb-1">Full stack dev</p>
                                 <p className="card-text small mb-3">Roll No: 23BCE056</p>
                                 <div className="mt-3">
-                                    <a href="https://linkedin.com/in/robertjohnson" className="btn btn-sm btn-outline-success me-2" target="_blank" rel="noopener noreferrer">
+                                    <a href="https://www.linkedin.com/in/devansh-deshpande-70982328b/" className="btn btn-sm btn-outline-success me-2" target="_blank" rel="noopener noreferrer">
                                         <FaLinkedin className="me-1" /> LinkedIn
                                     </a>
                                 </div>
@@ -164,10 +151,10 @@ function About() {
                                     <span className="h1 text-success m-0">AB</span>
                                 </div>
                                 <h5 className="card-title">Ayush Bhatnagar</h5>
-                                <p className="card-text text-muted mb-1">AI expert</p>
+                                <p className="card-text text-muted mb-1">UI expert</p>
                                 <p className="card-text small mb-3">Roll No: 23BTM007</p>
                                 <div className="mt-3">
-                                    <a href="https://linkedin.com/in/emilyparker" className="btn btn-sm btn-outline-success me-2" target="_blank" rel="noopener noreferrer">
+                                    <a href="https://www.linkedin.com/in/ayushbhatnagar2004/" className="btn btn-sm btn-outline-success me-2" target="_blank" rel="noopener noreferrer">
                                         <FaLinkedin className="me-1" /> LinkedIn
                                     </a>
                                 </div>
@@ -175,40 +162,6 @@ function About() {
                         </div>
                     </div>
                 </div>
-
-                <div className="row g-4">
-                    <h2 className="text-center text-success mb-4">Our Impact</h2>
-                    <div className="col-md-4">
-                        <div className="card h-100 border-0 shadow-sm text-center">
-                            <div className="card-body p-4">
-                                <div className="display-3 text-success fw-bold mb-2">5K+</div>
-                                <h5 className="card-title">Active Users</h5>
-                                <p className="card-text">Bird enthusiasts from 20+ countries use our platform monthly.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-4">
-                        <div className="card h-100 border-0 shadow-sm text-center">
-                            <div className="card-body p-4">
-                                <div className="display-3 text-success fw-bold mb-2">50K+</div>
-                                <h5 className="card-title">Birds Identified</h5>
-                                <p className="card-text">Our AI has helped identify thousands of birds since launch.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-4">
-                        <div className="card h-100 border-0 shadow-sm text-center">
-                            <div className="card-body p-4">
-                                <div className="display-3 text-success fw-bold mb-2">3</div>
-                                <h5 className="card-title">Research Contributions</h5>
-                                <p className="card-text">Our data has supported early-stage conservation studies.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                
             </div>
         </div>
     );

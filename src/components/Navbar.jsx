@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
     return (
-        <nav className="navbar navbar-expand-lg navbar-light text-white bg-success p-4 w-100" >
+        <nav className="navbar navbar-expand-lg navbar-light text-white bg-success p-4">
             <div className="container-fluid">
                 <h1 className="navbar-brand text-white fs-1" href="#">Feather Scan</h1>
                 <button
@@ -22,8 +22,6 @@ function Navbar() {
                     <Link to="/upload" className="btn btn-info rounded-pill fw-bold px-4 py-2 shadow-sm">Upload</Link>
                     <Link to="/about" className="btn btn-info rounded-pill fw-bold px-4 py-2 shadow-sm">About</Link>
                 </div>
-
-
             </div>
         </nav>
     );

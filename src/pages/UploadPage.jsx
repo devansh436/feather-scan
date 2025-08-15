@@ -9,14 +9,14 @@ function UploadPage() {
   const [geminiResult, setGeminiResult] = useState("");
   
   return (
-    <div className="w-100" style={{ backgroundColor: "#e8f5e9"}}>
+    <div style={{ backgroundColor: "#e8f5e9",  overflowX: "hidden"}}>
       <Navbar />
-      <div className="container"> 
+      <div className="container-fluid"> 
         <div className="row"><UploadBox setGeminiResult={setGeminiResult}/></div>
         <div className="row"><Result geminiResult={geminiResult} /></div>
-        </div>
+      </div>
       <div className="row">
-        <BirdInfo />
+        <BirdInfo/>
       </div>
     </div>
   );

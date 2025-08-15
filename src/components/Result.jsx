@@ -1,6 +1,7 @@
 import parse from "html-react-parser";
 
 function Result({ geminiResult }) {
+  console.log(geminiResult);
   return (
     <div
       className="card mb-5 shadow-lg border-0"

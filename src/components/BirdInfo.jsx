@@ -1,6 +1,7 @@
 // Component for bird info
 import birdData from "../data/birds.js";
 import BirdCard from "./BirdCard";
+
 function BirdInfo() {
   return (
     <div>

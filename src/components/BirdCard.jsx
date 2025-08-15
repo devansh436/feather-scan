@@ -3,7 +3,7 @@ function BirdCard({ bird }) {
   return (
     <div
       className="card m-4 shadow-lg"
-      style={{ width: "250px", overflow: "hidden" }} // Fixed width & overflow control
+      style={{ width: "250px" }} // Fixed width & overflow control
     >
       {/* Image */}
       <img
