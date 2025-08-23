@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const PORT = import.meta.env.VITE_PORT;
-// console.log(PORT);
+const URL = import.meta.env.VITE_HOST_URL;
 
 function UploadBox({ setGeminiResult }) {
   const [file, setFile] = useState(null);
@@ -29,7 +29,7 @@ function UploadBox({ setGeminiResult }) {
     setMessage("");
 
     // const HOST_URL = "https://bird-species-api-zcbo.onrender.com";
-    const HOST_URL = `http://localhost:${PORT}/upload`;
+    const HOST_URL = `${URL}:${PORT}/upload`;
 
     try {
       const response = await fetch(HOST_URL, {
