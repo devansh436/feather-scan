@@ -1,3 +1,4 @@
+// For bird cards display!
 const birdData = [
   {
     name: "Sparrow",

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+const PORT = import.meta.env.VITE_PORT;
+// console.log(PORT);
 
 function UploadBox({ setGeminiResult }) {
   const [file, setFile] = useState(null);
@@ -26,7 +28,8 @@ function UploadBox({ setGeminiResult }) {
     setLoading(true);
     setMessage("");
 
-    const HOST_URL = "https://bird-species-api-zcbo.onrender.com";
+    // const HOST_URL = "https://bird-species-api-zcbo.onrender.com";
+    const HOST_URL = `http://localhost:${PORT}/upload`;
 
     try {
       const response = await fetch(HOST_URL, {
@@ -41,7 +44,7 @@ function UploadBox({ setGeminiResult }) {
       const data = await response.json();
 
       if (data.answer) {
-        setGeminiResult(data.answer); // ✅ Send answer to Result.jsx
+        setGeminiResult(data.answer); // Send answer to Result.jsx
         setMessage("Image processed successfully!");
         setAlertColor("success");
       } else {
@@ -68,22 +71,21 @@ function UploadBox({ setGeminiResult }) {
   }
 
   return (
-    <div className="d-flex flex-column align-items-center p-5 w-100">
+    <div>
       <div
         className="shadow-lg rounded p-4 bg-white"
         style={{ maxWidth: "500px", width: "100%" }}
       >
-        <h1
-          className="text-center text-white py-3 rounded bg-success"
-        >
+        <h1 className="text-center text-white py-3 rounded bg-success">
           Upload Image
         </h1>
+
         <form onSubmit={handleFileSubmit} className="mt-4">
           <label className="form-label fw-bold"> Choose an image or drag and drop:</label>
           <div
             onDrop={handleDrop}
             onDragOver={handleDragOver}
-            className="border border-secondary rounded p-3 text-center"
+            className="border border-secondary rounded py-5 text-center"
             style={{ cursor: "pointer" }}
           >
             <input
@@ -102,17 +104,27 @@ function UploadBox({ setGeminiResult }) {
             className="btn btn-outline-primary w-100 mt-3 shadow-sm"
             disabled={loading}
           >
-            {loading ? "Processing..." : "Upload"}
+            {loading ? (
+              <div className='d-flex justify-content-center'>
+                <div className="spinner-border text-primary" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            ): (
+              <div className='p-1'>Upload</div>
+            )}
           </button>
+
           <Link to="/">
             <button
               type="button"
-              className="btn btn-outline-secondary w-100 mt-2 shadow-sm"
+              className="btn btn-outline-secondary w-100 mt-2 shadow-sm p-2"
               disabled={loading}
             >
               Back to home
             </button>
           </Link>
+          
         </form>
 
         {message && (

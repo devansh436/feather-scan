@@ -1,4 +1,4 @@
-// BirdCard.jsx - Component for individual bird card
+// Component for individual bird card
 function BirdCard({ bird }) {
   return (
     <div
