@@ -76,7 +76,8 @@ app.post("/upload", upload.single("image"), async (req: Request, res: Response):
     });
 
     // send image to backend model
-    const pythonRes = await axios.post("http://localhost:5000/predict", formData, {
+    const FAST_URL = process.env.FAST_API_URL || `http://localhost:5000/predict`;
+    const pythonRes = await axios.post(FAST_URL, formData, {
       headers: formData.getHeaders(),
     });
     const data = pythonRes.data;
