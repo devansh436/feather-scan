@@ -1,56 +1,83 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 import multer from "multer";
-import axios from "axios";
-import fs from "fs";
+import fsPromises from "fs/promises";
 import dotenv from "dotenv";
-import { exec } from "child_process";
+import { spawn } from "child_process";
+import { GoogleGenAI } from "@google/genai"
 
 dotenv.config();
 const app = express();
 app.use(cors());
 const PORT = process.env.PORT;
-// const HOST_URL = process.env.HOST_URL
-const HOST_URL = "http://localhost"
 const API_KEY = process.env.GAPI_KEY;
 const upload = multer({ dest: "uploads/" });
 
+// Cache previous gemini outputs
+const cache: Record<string, string> = {}
 
-// format gemini output
-function formatGeminiOutput(text: string): string {
-  // Convert **xyz** to <b>xyz</b>
-  const boldFormatted = text.replace(/\*\*(.+?)\*\*/g, `<b style="color :rgb(127, 221, 255);">$1</b>`);
-  // Remove leading "* " from lines
-  const cleanText = boldFormatted.replace(/^\*\s+/gm, '');
-  // Ensure proper new lines using <br> tags
-  return cleanText.replace(/\n+/g, '<br>');
+const ai = new GoogleGenAI({ apiKey: API_KEY });
+
+async function getGeminiInfo(bird: string): Promise<string> {
+  if (cache[bird]) return cache[bird];
+
+  const TEXT_PROMPT =
+`Return information about the bird ${bird} as a plain JSON object.
+Do NOT include any markdown, code blocks, or extra text.
+Use exactly these keys: "name", "scientific_name", "confidence", "habitat", "origin", "description".
+Only return valid JSON, e.g.:
+
+{
+  "name": "Bald Eagle",
+  "scientific_name": "Haliaeetus leucocephalus",
+  "habitat": "Near large bodies of open water, forests",
+  "origin": "North America",
+  "description": "A large bird of prey known for its white head and tail."
 }
+`;
 
+
+  // Fetch response
+  const geminiResponse = await ai.models.generateContent({
+    model: 'gemini-2.5-flash',
+    contents: TEXT_PROMPT,
+  });
+
+  // Extract the relevant data from the Gemini response
+  let geminiAnswer = geminiResponse.candidates?.[0].content?.parts?.[0].text || "No response.";
+  // console.log(geminiAnswer);
+  let geminiData;
+  if (geminiAnswer) {
+    cache[bird] = geminiAnswer;
+    try {
+      geminiData = JSON.parse(geminiAnswer);
+    } catch (e) {
+      console.error("Failed to parse Gemini JSON:", geminiAnswer);
+      geminiData = null;
+    }
+  }
+  return geminiData;
+}
 
 // predict species via model.py
-async function getAIPrediction(imagePath : string): Promise<string> {
-  return new Promise((resolve,reject) => (
-    exec(`python main.py ${imagePath}`, (error, stdout, stderr) => {
-      if (error) {
-        console.error("Error:", error);
-        reject(error.message);
-      } else if (stderr) {
-        console.error("Model stderr:", stderr);
-        resolve(stdout.trim());
-      } else {
-        console.log(stdout.trim());
-        resolve(stdout.trim());
-      }
-    })
-  ));
+async function getAIPrediction(imagePath: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const py = spawn("python", ["main.py", imagePath]);
+
+    let output = "";
+    py.stdout.on("data", data => output += data.toString());
+    py.stderr.on("data", err => console.error("Model stderr:", err.toString()));
+
+    py.on("close", code => {
+      if (code !== 0) reject("Python process failed");
+      else resolve(output.trim());
+    });
+  });
 }
-
-
 
 app.get("/test", (req: Request, res: Response) => {
   res.send("Hello World");
 });
-
 
 app.post("/upload", upload.single("image"), (req: Request, res: Response) => {
   (async () => {
@@ -59,39 +86,11 @@ app.post("/upload", upload.single("image"), (req: Request, res: Response) => {
 
       const imagePath = req.file.path;
       const predictedBird = await getAIPrediction(imagePath);
-      console.log("predictedBird = " + predictedBird);
-      const TEXT_PROMPT = `Tell me about the bird ${predictedBird} in a brief, pointwise manner directly WITHOUT saying "Okay here is your answer ... ". Write in this format:
-      Name : xyz
-      Confidence : x%
-      Scientific Name : abc
-      Habitat : [Where it is generally found and any notable habitat details]
-      Origin: [Geographical origin or native region]
-      and so on...
-      The attributes must be in bold.
-      `;
-
-      // Fetch response
-      const geminiResponse = await axios.post(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`,
-        {
-          contents: [
-            {
-              parts: [
-                { text: TEXT_PROMPT }
-              ]
-            }
-          ]
-        }
-      );
-
+      const geminiAnswer = await getGeminiInfo(predictedBird);
       // Delete the uploaded file after processing
-      fs.unlinkSync(req.file.path);
-
-      // Extract the relevant data from the Gemini response
-      let geminiAnswer = geminiResponse.data.candidates[0]?.content?.parts?.[0]?.text;
-      // console.log("Gemini Response:\n", geminiAnswer);
-      geminiAnswer = formatGeminiOutput(geminiAnswer);
+      await fsPromises.unlink(req.file.path);
       res.json({ answer: geminiAnswer });
+
     } catch (error) {
       console.error("Error:", error);
       res.status(500).json({ error: "Server error" });
@@ -100,5 +99,5 @@ app.post("/upload", upload.single("image"), (req: Request, res: Response) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on ${HOST_URL}:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
