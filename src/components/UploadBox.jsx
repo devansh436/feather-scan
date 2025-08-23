@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const PORT = import.meta.env.VITE_PORT;
-const URL = import.meta.env.VITE_HOST_URL;
+// const PORT = import.meta.env.VITE_PORT;
+// const URL = import.meta.env.VITE_HOST_URL;
 
 function UploadBox({ setGeminiResult }) {
   const [file, setFile] = useState(null);
@@ -28,8 +28,8 @@ function UploadBox({ setGeminiResult }) {
     setLoading(true);
     setMessage("");
 
-    const HOST_URL = "https://bird-species-api-zcbo.onrender.com";
-    // const HOST_URL = `${URL}:${PORT}/upload`;
+    const HOST_URL = import.meta.env.VITE_HOST_URL;
+    // const HOST_URL = `http://localhost:3000/upload`;
 
     try {
       const response = await fetch(HOST_URL, {
