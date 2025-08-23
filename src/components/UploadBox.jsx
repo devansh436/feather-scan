@@ -28,8 +28,8 @@ function UploadBox({ setGeminiResult }) {
     setLoading(true);
     setMessage("");
 
-    // const HOST_URL = "https://bird-species-api-zcbo.onrender.com";
-    const HOST_URL = `${URL}:${PORT}/upload`;
+    const HOST_URL = "https://bird-species-api-zcbo.onrender.com";
+    // const HOST_URL = `${URL}:${PORT}/upload`;
 
     try {
       const response = await fetch(HOST_URL, {
