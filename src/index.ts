@@ -85,11 +85,12 @@ app.post("/upload", upload.single("image"), async (req: Request, res: Response):
 
     // send identified label to gemini
     const geminiAnswer = await getGeminiInfo(data);
-    res.json({ answer: geminiAnswer, bird: data.label, confidence: data.confidence });
-    
+    return res.json({ answer: geminiAnswer, bird: data.label, confidence: data.confidence });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Server error" });
+    if (!res.headersSent) {
+      return res.status(500).json({ error: "Server error" });
+    }
   }
 });
 
