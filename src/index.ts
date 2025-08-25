@@ -61,8 +61,8 @@ Only return valid JSON, e.g.:
 // GET
 app.get("/test", (req: Request, res: Response) => {
   res.send("Hello World");
+  res.status(200).send("OK");
 });
-
 
 // POST
 app.post("/upload", upload.single("image"), async (req: Request, res: Response): Promise<any> => {
