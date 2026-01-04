@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-// const PORT = import.meta.env.VITE_PORT;
-// const URL = import.meta.env.VITE_HOST_URL;
-
 function UploadBox({ setGeminiResult }) {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -28,8 +25,7 @@ function UploadBox({ setGeminiResult }) {
     setLoading(true);
     setMessage("");
 
-    const HOST_URL = import.meta.env.VITE_HOST_URL;
-    // const HOST_URL = `http://localhost:3000/upload`;
+    const HOST_URL = import.meta.env.VITE_HOST_URL || `http://localhost:3000/upload`;
 
     try {
       const response = await fetch(HOST_URL, {
