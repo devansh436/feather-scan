@@ -1,0 +1,13 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.card { 
+  transition: transform 0.2s;
+  cursor:pointer;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
