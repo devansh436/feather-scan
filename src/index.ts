@@ -3,22 +3,46 @@ import cors from "cors";
 import multer, { memoryStorage } from "multer";
 import dotenv from "dotenv";
 import axios from 'axios';
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, Model } from "@google/genai";
 import FormData from 'form-data';
 
 dotenv.config();
 const app = express();
 app.use(cors());
-const PORT = process.env.PORT;
-const API_KEY = process.env.GAPI_KEY;
+const PORT = process.env.PORT || 3000;
 const upload = multer({ storage: memoryStorage() });
+
+if (!process.env.GEMINI_API_KEY) {
+  throw new Error('GEMINI_API_KEY is missing.');
+}
+const API_KEY = process.env.GEMINI_API_KEY || "";
 const ai = new GoogleGenAI({ apiKey: API_KEY });
+
+type BirdPrediction = {
+  label: string;
+  confidence: number;
+};
+
+type BirdInfo = {
+  name: string;
+  scientific_name: string;
+  confidence?: number;
+  habitat: string;
+  origin: string;
+  description: string;
+};
+
+type ModelResponse = {
+  label: string;
+  confidence: number;
+  error?: string;
+};
 
 // Cache previous gemini outputs
 const cache: Record<string, string> = {}
 
-// Function to get bird details
-async function getGeminiInfo(bird: any): Promise<string> {
+// Function to get bird details (bird -> prediction in json -> label, confidence)
+async function getGeminiInfo(bird: BirdPrediction): Promise<BirdInfo | null> {
   if (cache.hasOwnProperty(bird.label)) {
     return JSON.parse(cache[bird.label]);
   }
@@ -38,14 +62,17 @@ Only return valid JSON, e.g.:
 `;
   // Fetch response
   const geminiResponse = await ai.models.generateContent({
-    model: 'gemini-2.5-flash',
+    model: process.env.GEMINI_MODEL || 'gemini-2.5-flash',
     contents: TEXT_PROMPT,
   });
 
   // Extract the relevant data from the Gemini response
-  let geminiAnswer = geminiResponse.candidates?.[0].content?.parts?.[0].text || "No response.";
+  let geminiAnswer = geminiResponse.candidates?.[0].content?.parts?.[0].text;
+  if (!geminiAnswer) return null;
+  
   let geminiData;
   if (geminiAnswer) {
+    // create {label : answer} cache entry
     cache[bird.label] = geminiAnswer;
     try {
       geminiData = JSON.parse(geminiAnswer);
@@ -60,7 +87,6 @@ Only return valid JSON, e.g.:
 
 // GET
 app.get("/test", (req: Request, res: Response) => {
-  res.send("Hello World");
   res.status(200).send("OK");
 });
 
@@ -80,7 +106,8 @@ app.post("/upload", upload.single("image"), async (req: Request, res: Response):
     const pythonRes = await axios.post(FAST_URL, formData, {
       headers: formData.getHeaders(),
     });
-    const data = pythonRes.data;
+    
+    const data: ModelResponse = pythonRes.data;
     if (data.error) return res.status(500).json({ error: data.error });
 
     // send identified label to gemini
