@@ -6,12 +6,19 @@ function UploadBox({ setGeminiResult }) {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [alertColor, setAlertColor] = useState("danger");
+  const [selectedModel, setSelectedModel] = useState("");
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
     setMessage("");
   };
 
+  const handleModelSelection = (event) => {
+    setSelectedModel(event.target.value);
+    console.log(event.target.value);
+  };
+
+  // MAIN MASALAAAA
   const handleFileSubmit = async (event) => {
     event.preventDefault();
     if (!file) {
@@ -19,13 +26,16 @@ function UploadBox({ setGeminiResult }) {
       return;
     }
 
+    // create multipart body to send over http to backend
     const formData = new FormData();
     formData.append("image", file);
+    formData.append("model_type", selectedModel);
 
     setLoading(true);
     setMessage("");
 
-    const HOST_URL = import.meta.env.VITE_HOST_URL || `http://localhost:3000/upload`;
+    const HOST_URL =
+      import.meta.env.VITE_HOST_URL || `http://localhost:3000/upload`;
 
     try {
       const response = await fetch(HOST_URL, {
@@ -77,7 +87,10 @@ function UploadBox({ setGeminiResult }) {
         </h1>
 
         <form onSubmit={handleFileSubmit} className="mt-4">
-          <label className="form-label fw-bold"> Choose an image or drag and drop:</label>
+          <label className="form-label fw-bold">
+            {" "}
+            Choose an image or drag and drop:
+          </label>
           <div
             onDrop={handleDrop}
             onDragOver={handleDragOver}
@@ -91,7 +104,11 @@ function UploadBox({ setGeminiResult }) {
               className="d-none"
               accept="image/*"
             />
-            <label htmlFor="fileInput" className="w-100" style= {{"cursor" : "pointer"}}>
+            <label
+              htmlFor="fileInput"
+              className="w-100"
+              style={{ cursor: "pointer" }}
+            >
               {file ? file.name : "Click to select or drop an image"}
             </label>
           </div>
@@ -101,15 +118,41 @@ function UploadBox({ setGeminiResult }) {
             disabled={loading}
           >
             {loading ? (
-              <div className='d-flex justify-content-center'>
+              <div className="d-flex justify-content-center">
                 <div className="spinner-border text-primary" role="status">
                   <span className="visually-hidden">Loading...</span>
                 </div>
               </div>
-            ): (
-              <div className='p-1'>Upload</div>
+            ) : (
+              <div className="p-1">Upload</div>
             )}
           </button>
+          <label htmlFor="model_plant">Plant</label>
+          <input
+            type="radio"
+            name="model_type"
+            onChange={handleModelSelection}
+            value="plant"
+            id="model_plant"
+          />
+          <br />
+          <label htmlFor="model_bird">Bird</label>
+          <input
+            type="radio"
+            name="model_type"
+            onChange={handleModelSelection}
+            value="bird"
+            id="model_bird"
+          />
+          <br />
+          <label htmlFor="model_animal">Animal</label>
+          <input
+            type="radio"
+            name="model_type"
+            onChange={handleModelSelection}
+            value="animal"
+            id="model_animal"
+          />
 
           <Link to="/">
             <button
@@ -120,7 +163,6 @@ function UploadBox({ setGeminiResult }) {
               Back to home
             </button>
           </Link>
-          
         </form>
 
         {message && (
