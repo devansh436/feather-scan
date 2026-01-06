@@ -1,0 +1,72 @@
+[
+  {
+    "common_name": "lion",
+    "scientific_name": "Panthera leo",
+    "habitat": "Savannas, grasslands, open woodlands",
+    "origin": "Africa, small population in India",
+    "description": "Lions are large social cats known for living in prides and being apex predators."
+  },
+  {
+    "common_name": "tiger",
+    "scientific_name": "Panthera tigris",
+    "habitat": "Forests, grasslands, mangroves",
+    "origin": "Asia",
+    "description": "Tigers are the largest living cats, recognized by their orange coats with black stripes."
+  },
+  {
+    "common_name": "elephant",
+    "scientific_name": "Loxodonta africana / Elephas maximus",
+    "habitat": "Savannas, forests, grasslands",
+    "origin": "Africa and Asia",
+    "description": "Elephants are the largest land animals, known for their intelligence, trunks, and tusks."
+  },
+  {
+    "common_name": "zebra",
+    "scientific_name": "Equus quagga",
+    "habitat": "Grasslands, savannas",
+    "origin": "Africa",
+    "description": "Zebras are African herbivores known for their distinctive black-and-white striped coats."
+  },
+  {
+    "common_name": "dog",
+    "scientific_name": "Canis lupus familiaris",
+    "habitat": "Domestic environments",
+    "origin": "Domesticated worldwide",
+    "description": "Dogs are domesticated mammals known for their loyalty, intelligence, and companionship with humans."
+  },
+  {
+    "common_name": "cat",
+    "scientific_name": "Felis catus",
+    "habitat": "Domestic environments",
+    "origin": "Domesticated worldwide",
+    "description": "Cats are small domesticated carnivores valued for their agility and independent behavior."
+  },
+  {
+    "common_name": "bear",
+    "scientific_name": "Ursidae",
+    "habitat": "Forests, mountains, tundra",
+    "origin": "North America, Europe, Asia",
+    "description": "Bears are large mammals with strong builds, found in diverse habitats across the northern hemisphere."
+  },
+  {
+    "common_name": "wolf",
+    "scientific_name": "Canis lupus",
+    "habitat": "Forests, tundra, grasslands",
+    "origin": "North America, Europe, Asia",
+    "description": "Wolves are highly social carnivores that live and hunt in organized packs."
+  },
+  {
+    "common_name": "deer",
+    "scientific_name": "Cervidae",
+    "habitat": "Forests, grasslands",
+    "origin": "Worldwide",
+    "description": "Deer are herbivorous mammals known for males growing antlers and their agile movement."
+  },
+  {
+    "common_name": "monkey",
+    "scientific_name": "Simiiformes",
+    "habitat": "Forests, grasslands, mountains",
+    "origin": "Africa, Asia, Central and South America",
+    "description": "Monkeys are intelligent primates known for social behavior and dexterity."
+  }
+]

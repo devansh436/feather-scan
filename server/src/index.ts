@@ -18,72 +18,30 @@ if (!process.env.GEMINI_API_KEY) {
 const API_KEY = process.env.GEMINI_API_KEY || "";
 const ai = new GoogleGenAI({ apiKey: API_KEY });
 
-type BirdPrediction = {
+type Prediction = {
+  type: string;
   label: string;
   confidence: number;
 };
 
-type BirdInfo = {
+type SpeciesInfo = {
   name: string;
   scientific_name: string;
   confidence?: number;
   habitat: string;
   origin: string;
   description: string;
+  cached: boolean;
 };
 
 type ModelResponse = {
+  type: string;
   label: string;
   confidence: number;
+  info: object;
   error?: string;
+  cached: boolean;
 };
-
-// Cache previous gemini outputs
-const cache: Record<string, string> = {}
-
-// Function to get bird details (bird -> prediction in json -> label, confidence)
-async function getGeminiInfo(bird: BirdPrediction): Promise<BirdInfo | null> {
-  if (cache.hasOwnProperty(bird.label)) {
-    return JSON.parse(cache[bird.label]);
-  }
-  const TEXT_PROMPT =
-    `Return information about the bird name = ${bird.label} & confidence = ${bird.confidence} as a plain JSON object.
-Do NOT include any markdown, code blocks, or extra text.
-Use exactly these keys: "name", "scientific_name", "confidence", "habitat", "origin", "description".
-Only return valid JSON, e.g.:
-
-{
-  "name": "Bald Eagle",
-  "scientific_name": "Haliaeetus leucocephalus",
-  "habitat": "Near large bodies of open water, forests",
-  "origin": "North America",
-  "description": "A large bird of prey known for its white head and tail."
-}
-`;
-  // Fetch response
-  const geminiResponse = await ai.models.generateContent({
-    model: process.env.GEMINI_MODEL || 'gemini-2.5-flash',
-    contents: TEXT_PROMPT,
-  });
-
-  // Extract the relevant data from the Gemini response
-  let geminiAnswer = geminiResponse.candidates?.[0].content?.parts?.[0].text;
-  if (!geminiAnswer) return null;
-  
-  let geminiData;
-  if (geminiAnswer) {
-    // create {label : answer} cache entry
-    cache[bird.label] = geminiAnswer;
-    try {
-      geminiData = JSON.parse(geminiAnswer);
-    } catch (e) {
-      console.error("Failed to parse Gemini JSON:", geminiAnswer);
-      geminiData = null;
-    }
-  }
-  return geminiData;
-}
-
 
 // GET
 app.get("/test", (req: Request, res: Response) => {
@@ -100,6 +58,7 @@ app.post("/upload", upload.single("image"), async (req: Request, res: Response):
       filename: req.file.originalname,
       contentType: req.file.mimetype,
     });
+    formData.append("model_type", req.body.model_type)
 
     // send image to backend model
     const FAST_URL = process.env.FAST_API_URL || `http://localhost:5000/predict`;
@@ -111,8 +70,8 @@ app.post("/upload", upload.single("image"), async (req: Request, res: Response):
     if (data.error) return res.status(500).json({ error: data.error });
 
     // send identified label to gemini
-    const geminiAnswer = await getGeminiInfo(data);
-    return res.json({ answer: geminiAnswer, bird: data.label, confidence: data.confidence });
+    const geminiAnswer = data.info;
+    return res.json({ answer: geminiAnswer, bird: data.label, confidence: data.confidence, cached: data.cached });
   } catch (err) {
     console.error(err);
     if (!res.headersSent) {
