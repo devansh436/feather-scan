@@ -24,79 +24,24 @@ type Prediction = {
   confidence: number;
 };
 
-type BirdInfo = {
+type SpeciesInfo = {
   name: string;
   scientific_name: string;
   confidence?: number;
   habitat: string;
   origin: string;
   description: string;
+  cached: boolean;
 };
 
 type ModelResponse = {
   type: string;
   label: string;
   confidence: number;
+  info: object;
   error?: string;
+  cached: boolean;
 };
-
-// Cache previous gemini outputs
-const cache: Record<string, string> = {}
-
-// Function to get bird details (bird -> prediction in json -> label, confidence)
-async function getGeminiInfo(pred: Prediction): Promise<BirdInfo | null> {
-  // if (cache.hasOwnProperty(pred.label)) {
-  //   return JSON.parse(cache[pred.label]);
-  // }
-  const TEXT_PROMPT = `
-Return information about the ${pred.type} name = ${pred.label} & confidence = ${pred.confidence} as a plain JSON object.
-Do NOT include any markdown, code blocks, or extra text.
-
-Use exactly these keys:
-"name", "scientific_name", "confidence", "habitat", "origin", "description".
-
-Rules:
-- If the ${pred.type} is a bird, habitat should describe natural living environments.
-- If the ${pred.type} is a plant, habitat should describe growth conditions (climate, soil, region).
-- confidence must be a number (percentage, no % sign).
-- If unsure, make a best-effort guess based on common knowledge.
-
-Only return valid JSON, e.g.:
-
-{
-  "name": "Bald Eagle",
-  "scientific_name": "Haliaeetus leucocephalus",
-  "confidence": 97.3,
-  "habitat": "Near large bodies of open water, forests",
-  "origin": "North America",
-  "description": "A large bird of prey known for its white head and tail."
-}
-`;
-
-  // Fetch response
-  const geminiResponse = await ai.models.generateContent({
-    model: process.env.GEMINI_MODEL || 'gemini-2.5-flash',
-    contents: TEXT_PROMPT,
-  });
-
-  // Extract the relevant data from the Gemini response
-  let geminiAnswer = geminiResponse.candidates?.[0].content?.parts?.[0].text;
-  if (!geminiAnswer) return null;
-  
-  let geminiData;
-  if (geminiAnswer) {
-    // create {pred.label : answer} cache entry
-    cache[pred.label] = geminiAnswer;
-    try {
-      geminiData = JSON.parse(geminiAnswer);
-    } catch (e) {
-      console.error("Failed to parse Gemini JSON:", geminiAnswer);
-      geminiData = null;
-    }
-  }
-  return geminiData;
-}
-
 
 // GET
 app.get("/test", (req: Request, res: Response) => {
@@ -125,8 +70,8 @@ app.post("/upload", upload.single("image"), async (req: Request, res: Response):
     if (data.error) return res.status(500).json({ error: data.error });
 
     // send identified label to gemini
-    const geminiAnswer = await getGeminiInfo(data);
-    return res.json({ answer: geminiAnswer, bird: data.label, confidence: data.confidence });
+    const geminiAnswer = data.info;
+    return res.json({ answer: geminiAnswer, bird: data.label, confidence: data.confidence, cached: data.cached });
   } catch (err) {
     console.error(err);
     if (!res.headersSent) {
