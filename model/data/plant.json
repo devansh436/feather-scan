@@ -1,0 +1,352 @@
+[
+    {
+        "common_name": "Amla",
+        "scientific_name": "Phyllanthus emblica",
+        "habitat": "Tropical and subtropical forests",
+        "origin": "Indian subcontinent",
+        "description": "Amla is a deciduous tree known for its vitamin C-rich fruit widely used in Ayurvedic medicine."
+    },
+    {
+        "common_name": "Curry Plant",
+        "scientific_name": "Helichrysum italicum",
+        "habitat": "Dry, rocky soils",
+        "origin": "Mediterranean region",
+        "description": "An aromatic shrub often confused with curry leaf but mainly used for fragrance, not cooking."
+    },
+    {
+        "common_name": "Betel Leaf",
+        "scientific_name": "Piper betle",
+        "habitat": "Humid tropical regions",
+        "origin": "Southeast Asia",
+        "description": "A climber plant whose leaves are traditionally chewed in many Asian cultures."
+    },
+    {
+        "common_name": "Bamboo",
+        "scientific_name": "Bambusoideae",
+        "habitat": "Forests, grasslands",
+        "origin": "Asia",
+        "description": "Fast-growing woody grasses widely used for construction, food, and crafts."
+    },
+    {
+        "common_name": "Spinach",
+        "scientific_name": "Spinacia oleracea",
+        "habitat": "Cultivated farmland",
+        "origin": "Persia (Iran)",
+        "description": "A leafy green vegetable rich in iron and vitamins."
+    },
+    {
+        "common_name": "Coriander",
+        "scientific_name": "Coriandrum sativum",
+        "habitat": "Cultivated fields",
+        "origin": "Southern Europe, Western Asia",
+        "description": "An herb used for its leaves and seeds in cooking worldwide."
+    },
+    {
+        "common_name": "Ashoka",
+        "scientific_name": "Saraca asoca",
+        "habitat": "Moist tropical forests",
+        "origin": "Indian subcontinent",
+        "description": "A sacred tree in India known for its ornamental flowers and medicinal properties."
+    },
+    {
+        "common_name": "Custard Apple",
+        "scientific_name": "Annona squamosa",
+        "habitat": "Tropical dry regions",
+        "origin": "Central America",
+        "description": "A small tree producing sweet, pulpy fruits."
+    },
+    {
+        "common_name": "Lemongrass",
+        "scientific_name": "Cymbopogon citratus",
+        "habitat": "Tropical climates",
+        "origin": "Southeast Asia",
+        "description": "An aromatic grass used in cooking and traditional medicine."
+    },
+    {
+        "common_name": "Papaya",
+        "scientific_name": "Carica papaya",
+        "habitat": "Tropical regions",
+        "origin": "Central America",
+        "description": "A fast-growing fruit tree known for its digestive benefits."
+    },
+    {
+        "common_name": "Curry Leaf",
+        "scientific_name": "Murraya koenigii",
+        "habitat": "Tropical and subtropical regions",
+        "origin": "India and Sri Lanka",
+        "description": "A small tree whose leaves are essential in South Indian cooking."
+    },
+    {
+        "common_name": "Lemon",
+        "scientific_name": "Citrus limon",
+        "habitat": "Subtropical climates",
+        "origin": "South Asia",
+        "description": "A citrus fruit known for its sour taste and high vitamin C content."
+    },
+    {
+        "common_name": "Indian Laurel",
+        "scientific_name": "Vitex negundo",
+        "habitat": "Roadsides and wastelands",
+        "origin": "India",
+        "description": "A medicinal shrub used in traditional remedies."
+    },
+    {
+        "common_name": "Henna",
+        "scientific_name": "Lawsonia inermis",
+        "habitat": "Arid and semi-arid regions",
+        "origin": "North Africa, South Asia",
+        "description": "A flowering plant whose leaves are used to produce natural dye."
+    },
+    {
+        "common_name": "Mango",
+        "scientific_name": "Mangifera indica",
+        "habitat": "Tropical regions",
+        "origin": "Indian subcontinent",
+        "description": "A major fruit tree producing sweet and fleshy fruits."
+    },
+    {
+        "common_name": "Doddapatre",
+        "scientific_name": "Plectranthus amboinicus",
+        "habitat": "Tropical regions",
+        "origin": "Africa",
+        "description": "An aromatic herb commonly used in traditional medicine."
+    },
+    {
+        "common_name": "Giloy",
+        "scientific_name": "Tinospora cordifolia",
+        "habitat": "Tropical forests",
+        "origin": "India",
+        "description": "A climbing shrub known for its immune-boosting properties."
+    },
+    {
+        "common_name": "Betel Nut",
+        "scientific_name": "Areca catechu",
+        "habitat": "Tropical climates",
+        "origin": "Southeast Asia",
+        "description": "A palm tree whose seeds are commonly chewed with betel leaf."
+    },
+    {
+        "common_name": "Tulsi",
+        "scientific_name": "Ocimum tenuiflorum",
+        "habitat": "Cultivated gardens",
+        "origin": "Indian subcontinent",
+        "description": "A sacred herb in India with medicinal significance."
+    },
+    {
+        "common_name": "Pomegranate",
+        "scientific_name": "Punica granatum",
+        "habitat": "Semi-arid regions",
+        "origin": "Iran to Northern India",
+        "description": "A fruit-bearing shrub producing antioxidant-rich seeds."
+    },
+    {
+        "common_name": "Castor",
+        "scientific_name": "Ricinus communis",
+        "habitat": "Tropical regions",
+        "origin": "Africa",
+        "description": "A plant known for castor oil production and medicinal uses."
+    },
+    {
+        "common_name": "Jackfruit",
+        "scientific_name": "Artocarpus heterophyllus",
+        "habitat": "Tropical regions",
+        "origin": "Indian subcontinent",
+        "description": "A large tropical tree producing the largest edible fruit in the world."
+    },
+    {
+        "common_name": "Insulin Plant",
+        "scientific_name": "Costus igneus",
+        "habitat": "Tropical gardens",
+        "origin": "Central America",
+        "description": "A medicinal plant traditionally used to help regulate blood sugar levels."
+    },
+    {
+        "common_name": "Pepper",
+        "scientific_name": "Piper nigrum",
+        "habitat": "Humid tropical climates",
+        "origin": "India",
+        "description": "A flowering vine cultivated for its dried berries used as spice."
+    },
+    {
+        "common_name": "Raktachandini",
+        "scientific_name": "Pterocarpus santalinus",
+        "habitat": "Dry deciduous forests",
+        "origin": "India",
+        "description": "A rare tree known for its red-colored wood with medicinal value."
+    },
+    {
+        "common_name": "Aloe Vera",
+        "scientific_name": "Aloe vera",
+        "habitat": "Arid and semi-arid regions",
+        "origin": "Arabian Peninsula",
+        "description": "A succulent plant widely used for skin treatment and medicinal purposes."
+    },
+    {
+        "common_name": "Jasmine",
+        "scientific_name": "Jasminum sambac",
+        "habitat": "Tropical gardens",
+        "origin": "South Asia",
+        "description": "A fragrant flowering plant commonly used in perfumes and garlands."
+    },
+    {
+        "common_name": "Doddapatre",
+        "scientific_name": "Plectranthus amboinicus",
+        "habitat": "Tropical regions",
+        "origin": "Africa",
+        "description": "An aromatic medicinal herb used in traditional remedies."
+    },
+    {
+        "common_name": "Neem",
+        "scientific_name": "Azadirachta indica",
+        "habitat": "Tropical and subtropical regions",
+        "origin": "Indian subcontinent",
+        "description": "A medicinal tree known for antibacterial and antifungal properties."
+    },
+    {
+        "common_name": "Geranium",
+        "scientific_name": "Pelargonium graveolens",
+        "habitat": "Cultivated gardens",
+        "origin": "South Africa",
+        "description": "An aromatic flowering plant used in essential oil production."
+    },
+    {
+        "common_name": "Rose",
+        "scientific_name": "Rosa",
+        "habitat": "Gardens",
+        "origin": "Asia",
+        "description": "A flowering shrub known for its beauty and fragrance."
+    },
+    {
+        "common_name": "Guava",
+        "scientific_name": "Psidium guajava",
+        "habitat": "Tropical and subtropical regions",
+        "origin": "Central America",
+        "description": "A fruit-bearing tree producing vitamin C-rich fruits."
+    },
+    {
+        "common_name": "Hibiscus",
+        "scientific_name": "Hibiscus rosa-sinensis",
+        "habitat": "Tropical gardens",
+        "origin": "Asia",
+        "description": "A flowering plant used ornamentally and in herbal teas."
+    },
+    {
+        "common_name": "Nithyapushpa",
+        "scientific_name": "Catharanthus roseus",
+        "habitat": "Tropical regions",
+        "origin": "Madagascar",
+        "description": "A medicinal flowering plant known for anti-cancer compounds."
+    },
+    {
+        "common_name": "Wood Sorrel",
+        "scientific_name": "Oxalis corniculata",
+        "habitat": "Grasslands and gardens",
+        "origin": "Worldwide",
+        "description": "A small herb with sour-tasting leaves used in folk medicine."
+    },
+    {
+        "common_name": "Tamarind",
+        "scientific_name": "Tamarindus indica",
+        "habitat": "Tropical climates",
+        "origin": "Africa",
+        "description": "A large tree producing tangy edible fruits widely used in cooking."
+    },
+    {
+        "common_name": "Brahmi",
+        "scientific_name": "Bacopa monnieri",
+        "habitat": "Wetlands",
+        "origin": "India",
+        "description": "A medicinal herb used to enhance memory and cognitive function."
+    },
+    {
+        "common_name": "Sapota",
+        "scientific_name": "Manilkara zapota",
+        "habitat": "Tropical regions",
+        "origin": "Central America",
+        "description": "A fruit tree producing sweet brown fruits."
+    },
+    {
+        "common_name": "Basale",
+        "scientific_name": "Basella alba",
+        "habitat": "Tropical regions",
+        "origin": "Asia",
+        "description": "A leafy vegetable also known as Malabar spinach."
+    },
+    {
+        "common_name": "Avocado",
+        "scientific_name": "Persea americana",
+        "habitat": "Subtropical regions",
+        "origin": "Mexico",
+        "description": "A fruit tree producing nutrient-rich creamy fruits."
+    },
+    {
+        "common_name": "Ashwagandha",
+        "scientific_name": "Withania somnifera",
+        "habitat": "Dry regions",
+        "origin": "India",
+        "description": "A medicinal herb used as a stress reliever and adaptogen."
+    },
+    {
+        "common_name": "Nagadali",
+        "scientific_name": "Gloriosa superba",
+        "habitat": "Tropical forests",
+        "origin": "India",
+        "description": "A climbing plant known for its striking flowers and medicinal uses."
+    },
+    {
+        "common_name": "Arali",
+        "scientific_name": "Plumeria rubra",
+        "habitat": "Tropical gardens",
+        "origin": "Central America",
+        "description": "A flowering tree with fragrant ornamental flowers."
+    },
+    {
+        "common_name": "Ekka",
+        "scientific_name": "Calotropis gigantea",
+        "habitat": "Dry wastelands",
+        "origin": "India",
+        "description": "A hardy shrub used in traditional medicine."
+    },
+    {
+        "common_name": "Ganike",
+        "scientific_name": "Tagetes erecta",
+        "habitat": "Cultivated gardens",
+        "origin": "Mexico",
+        "description": "A marigold plant commonly used in religious and decorative purposes."
+    },
+    {
+        "common_name": "Tulasi",
+        "scientific_name": "Ocimum tenuiflorum",
+        "habitat": "Gardens",
+        "origin": "Indian subcontinent",
+        "description": "A sacred medicinal herb widely grown in Indian households."
+    },
+    {
+        "common_name": "Honge",
+        "scientific_name": "Pongamia pinnata",
+        "habitat": "Coastal and riverine regions",
+        "origin": "India",
+        "description": "A tree valued for biofuel production and medicinal uses."
+    },
+    {
+        "common_name": "Mint",
+        "scientific_name": "Mentha",
+        "habitat": "Moist environments",
+        "origin": "Europe and Asia",
+        "description": "An aromatic herb widely used in food and medicine."
+    },
+    {
+        "common_name": "Catharanthus",
+        "scientific_name": "Catharanthus roseus",
+        "habitat": "Tropical regions",
+        "origin": "Madagascar",
+        "description": "A medicinal plant known for producing anti-cancer alkaloids."
+    },
+    {
+        "common_name": "Papaya",
+        "scientific_name": "Carica papaya",
+        "habitat": "Tropical regions",
+        "origin": "Central America",
+        "description": "A fast-growing fruit plant known for digestive benefits."
+    }
+]
