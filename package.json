@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "model": "dotenv -e model/.env -- uvicorn main:app --reload",
+    "server": "dotenv -e server/.env -- nodemon index.js",
+    "client": "dotenv -e client/.env -- npm run dev",
+
+    "dev": "concurrently -k -n MODEL,SERVER,CLIENT -c blue,green,magenta \"cd model && npm run dev\" \"cd server && npm run dev\" \"cd client && npm run dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0",
+    "dotenv-cli": "^7.0.0",
+    "nodemon": "^3.0.0"
+  }
+}
