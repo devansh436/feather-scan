@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { auth } from '../lib/firebase.js';
 
 function UploadBox({ setGeminiResult }) {
   const [file, setFile] = useState(null);
@@ -20,13 +21,18 @@ function UploadBox({ setGeminiResult }) {
 
   // MAIN MASALAAAA
   const handleFileSubmit = async (event) => {
+    // prevent page refresh
     event.preventDefault();
+
     if (!file) {
       setMessage("Please select an image to upload!");
       return;
     }
-
-    // create multipart body to send over http to backend
+    
+    // Get firebase id token before file submit
+    const token = await auth.currentUser.getIdToken();
+    
+    // Create multipart body to send over http to backend
     const formData = new FormData();
     formData.append("image", file);
     formData.append("model_type", selectedModel);
@@ -34,13 +40,19 @@ function UploadBox({ setGeminiResult }) {
     setLoading(true);
     setMessage("");
 
+    // File upload api url
     const HOST_URL =
       import.meta.env.VITE_HOST_URL || `http://localhost:3000/upload`;
 
     try {
+      // Fetch req with image & model_type
+      // Token in Auth header
       const response = await fetch(HOST_URL, {
         method: "POST",
         body: formData,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
 
       if (!response.ok) {
@@ -49,8 +61,8 @@ function UploadBox({ setGeminiResult }) {
 
       const data = await response.json();
 
-      if (data.answer) {
-        setGeminiResult(data.answer); // Send answer to Result.jsx
+      if (data.info) {
+        setGeminiResult(data.info); // Send answer to Result.jsx
         setMessage("Image processed successfully!");
         setAlertColor("success");
       } else {

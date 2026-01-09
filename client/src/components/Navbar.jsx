@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, useLocation } from "react-router-dom";
+import { logout } from '../services/auth.js';
 
 function Navbar() {
     const location = useLocation();
@@ -67,6 +68,18 @@ function Navbar() {
                         >
                             ℹ️ About
                         </Link>
+                        <button 
+                            to="/login" 
+                            className={`btn rounded-pill fw-bold px-4 py-2 ${
+                                isActive('/about') 
+                                    ? 'btn-light text-success' 
+                                    : 'btn-outline-light'
+                            }`}
+                            style={{ minWidth: "100px" }}
+                            onClick={ logout }
+                        >
+                            📤 Logout
+                        </button>
                     </div>
                 </div>
             </div>
