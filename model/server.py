@@ -101,13 +101,13 @@ Rules:
 @app.post("/predict")
 async def predict(
     model_type: str = Form(...),
-    file: UploadFile = File(...)
+    image: UploadFile = File(...)
 ):
         
     if model_type not in ["animal", "bird", "plant"]:
         raise HTTPException(400, "Invalid model type")
     
-    image_bytes = await file.read()
+    image_bytes = await image.read()
     if len(image_bytes) > 5 * 1024 * 1024:
         raise HTTPException(status_code=413, detail="File too large.")
     
@@ -124,7 +124,6 @@ async def predict(
 
         return {
             "label": label,
-            "type": model_type,
             "confidence": confidence,
             "info": species_info
         }

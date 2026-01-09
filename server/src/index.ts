@@ -3,36 +3,19 @@ import cors from "cors";
 import multer, { memoryStorage } from "multer";
 import dotenv from "dotenv";
 import axios from 'axios';
-import { GoogleGenAI, Model } from "@google/genai";
 import FormData from 'form-data';
+import admin from 'firebase-admin';
+import serviceAccount from '../serviceAccountKey.json';
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount as admin.ServiceAccount)
+});
 
 dotenv.config();
 const app = express();
 app.use(cors());
 const PORT = process.env.PORT || 3000;
 const upload = multer({ storage: memoryStorage() });
-
-if (!process.env.GEMINI_API_KEY) {
-  throw new Error('GEMINI_API_KEY is missing.');
-}
-const API_KEY = process.env.GEMINI_API_KEY || "";
-const ai = new GoogleGenAI({ apiKey: API_KEY });
-
-type Prediction = {
-  type: string;
-  label: string;
-  confidence: number;
-};
-
-type SpeciesInfo = {
-  name: string;
-  scientific_name: string;
-  confidence?: number;
-  habitat: string;
-  origin: string;
-  description: string;
-  cached: boolean;
-};
 
 type ModelResponse = {
   type: string;
@@ -53,25 +36,42 @@ app.post("/upload", upload.single("image"), async (req: Request, res: Response):
   try {
     if (!req.file) return res.status(400).json({ error: "No file uploaded" });
 
+    // Extract Authorization header from request
+    const authHeader: string = req.headers.authorization || "";
+    try {
+      // Extract token from header
+      const token = authHeader.split(' ')[1];
+
+      // Verify token to ensure authorized access
+      await admin.auth().verifyIdToken(token);
+    } catch (err) {
+      console.log("Auth error", err);
+      return res.status(401).json({ error: 'Authentication error.' });
+    }
+
+    // Create formData for predict request to FastAPI
     const formData = new FormData();
-    formData.append("file", req.file.buffer, {
+    formData.append("image", req.file.buffer, {
       filename: req.file.originalname,
       contentType: req.file.mimetype,
     });
     formData.append("model_type", req.body.model_type)
 
-    // send image to backend model
+    // Send req to fastapi microservice
     const FAST_URL = process.env.FAST_API_URL || `http://localhost:5000/predict`;
-    const pythonRes = await axios.post(FAST_URL, formData, {
+    const result = await axios.post(FAST_URL, formData, {
       headers: formData.getHeaders(),
     });
-    
-    const data: ModelResponse = pythonRes.data;
-    if (data.error) return res.status(500).json({ error: data.error });
 
-    // send identified label to gemini
-    const geminiAnswer = data.info;
-    return res.json({ answer: geminiAnswer, bird: data.label, confidence: data.confidence, cached: data.cached });
+    const response: ModelResponse = result.data;
+    if (response.error) return res.status(500).json({ error: response.error });
+
+    return res.json({
+      label: response.label,
+      confidence: response.confidence,
+      info: response.info,
+    });
+
   } catch (err) {
     console.error(err);
     if (!res.headersSent) {
@@ -79,7 +79,6 @@ app.post("/upload", upload.single("image"), async (req: Request, res: Response):
     }
   }
 });
-
 
 // LISTEN
 app.listen(PORT, () => {
