@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, useLocation } from "react-router-dom";
 import { logout } from '../services/auth.js';
+import { BiLeaf, BiHome, BiUpload, BiInfoCircle, BiLogOut } from "react-icons/bi";
 
 function Navbar() {
     const location = useLocation();
@@ -11,16 +12,18 @@ function Navbar() {
         <nav 
             className="navbar navbar-expand-lg navbar-dark p-3"
             style={{
-                background: "linear-gradient(135deg, rgba(46, 125, 50, 0.95) 0%, rgba(67, 160, 71, 0.95) 100%)",
+                background: "linear-gradient(135deg, rgba(22, 27, 34, 0.98) 0%, rgba(33, 38, 45, 0.98) 100%)",
                 backdropFilter: "blur(10px)",
-                borderBottom: "2px solid rgba(102, 187, 106, 0.5)",
-                boxShadow: "0 4px 20px rgba(46, 125, 50, 0.3)"
+                borderBottom: "1px solid var(--dark-border)",
+                boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)"
             }}
         >
             <div className="container-fluid">
                 <Link to="/" className="navbar-brand text-white fs-2 fw-bold d-flex align-items-center gap-2" style={{ textDecoration: "none" }}>
-                    <span style={{ fontSize: "2rem" }}>🌿</span>
-                    Nature Scan
+                    <BiLeaf size={32} color="var(--accent-green)" />
+                    <span style={{ background: "linear-gradient(135deg, var(--accent-green), var(--accent-blue))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                        Nature Scan
+                    </span>
                 </Link>
                 <button
                     className="navbar-toggler"
@@ -36,49 +39,56 @@ function Navbar() {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <div className="ms-auto d-flex gap-2">
                         <Link 
-                            to="/" 
-                            className={`btn rounded-pill fw-bold px-4 py-2 ${
-                                isActive('/') 
-                                    ? 'btn-light text-success' 
-                                    : 'btn-outline-light'
+                            to="/home" 
+                            className={`btn rounded-pill fw-bold px-4 py-2 d-flex align-items-center gap-1 ${
+                                isActive('/home') 
+                                    ? '' 
+                                    : ''
                             }`}
-                            style={{ minWidth: "100px" }}
+                            style={{ 
+                                minWidth: "100px",
+                                background: isActive('/home') ? "linear-gradient(135deg, var(--accent-green-dim), var(--accent-blue-dim))" : "transparent",
+                                border: isActive('/home') ? "none" : "1px solid var(--dark-border)",
+                                color: "var(--text-primary)"
+                            }}
                         >
-                            🏠 Home
+                            <BiHome size={18} /> Home
                         </Link>
                         <Link 
                             to="/upload" 
-                            className={`btn rounded-pill fw-bold px-4 py-2 ${
-                                isActive('/upload') 
-                                    ? 'btn-light text-success' 
-                                    : 'btn-outline-light'
-                            }`}
-                            style={{ minWidth: "100px" }}
+                            className="btn rounded-pill fw-bold px-4 py-2 d-flex align-items-center gap-1"
+                            style={{ 
+                                minWidth: "100px",
+                                background: isActive('/upload') ? "linear-gradient(135deg, var(--accent-green-dim), var(--accent-blue-dim))" : "transparent",
+                                border: isActive('/upload') ? "none" : "1px solid var(--dark-border)",
+                                color: "var(--text-primary)"
+                            }}
                         >
-                            📤 Upload
+                            <BiUpload size={18} /> Upload
                         </Link>
                         <Link 
                             to="/about" 
-                            className={`btn rounded-pill fw-bold px-4 py-2 ${
-                                isActive('/about') 
-                                    ? 'btn-light text-success' 
-                                    : 'btn-outline-light'
-                            }`}
-                            style={{ minWidth: "100px" }}
+                            className="btn rounded-pill fw-bold px-4 py-2 d-flex align-items-center gap-1"
+                            style={{ 
+                                minWidth: "100px",
+                                background: isActive('/about') ? "linear-gradient(135deg, var(--accent-green-dim), var(--accent-blue-dim))" : "transparent",
+                                border: isActive('/about') ? "none" : "1px solid var(--dark-border)",
+                                color: "var(--text-primary)"
+                            }}
                         >
-                            ℹ️ About
+                            <BiInfoCircle size={18} /> About
                         </Link>
                         <button 
-                            to="/login" 
-                            className={`btn rounded-pill fw-bold px-4 py-2 ${
-                                isActive('/about') 
-                                    ? 'btn-light text-success' 
-                                    : 'btn-outline-light'
-                            }`}
-                            style={{ minWidth: "100px" }}
+                            className="btn rounded-pill fw-bold px-4 py-2 d-flex align-items-center gap-1"
+                            style={{ 
+                                minWidth: "100px",
+                                background: "transparent",
+                                border: "1px solid #f85149",
+                                color: "#f85149"
+                            }}
                             onClick={ logout }
                         >
-                            📤 Logout
+                            <BiLogOut size={18} /> Logout
                         </button>
                     </div>
                 </div>

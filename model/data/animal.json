@@ -1,72 +1,72 @@
 [
   {
-    "common_name": "lion",
+    "name": "lion",
     "scientific_name": "Panthera leo",
-    "habitat": "Savannas, grasslands, open woodlands",
-    "origin": "Africa, small population in India",
-    "description": "Lions are large social cats known for living in prides and being apex predators."
+    "habitat": "African savannas, grasslands, semi-arid plains, open woodlands with scattered acacia trees, and scrubland regions",
+    "origin": "Sub-Saharan Africa with a small critically endangered population in Gir Forest, Gujarat, India",
+    "description": "Lions are majestic large social cats known for living in family groups called prides, consisting of related females, their cubs, and a coalition of males. As apex predators, they play a crucial role in maintaining ecosystem balance by controlling herbivore populations across the African savanna."
   },
   {
-    "common_name": "tiger",
+    "name": "tiger",
     "scientific_name": "Panthera tigris",
-    "habitat": "Forests, grasslands, mangroves",
-    "origin": "Asia",
-    "description": "Tigers are the largest living cats, recognized by their orange coats with black stripes."
+    "habitat": "Dense tropical and subtropical forests, grasslands, wetlands, mangrove swamps, and montane regions up to high altitudes",
+    "origin": "Distributed across various regions of Asia including India, Southeast Asia, China, and the Russian Far East",
+    "description": "Tigers are the largest living cat species in the world, easily recognized by their distinctive orange coats adorned with bold black vertical stripes. These solitary and powerful predators are excellent swimmers and hunters, capable of taking down prey much larger than themselves using their muscular build and razor-sharp claws."
   },
   {
-    "common_name": "elephant",
+    "name": "elephant",
     "scientific_name": "Loxodonta africana / Elephas maximus",
-    "habitat": "Savannas, forests, grasslands",
-    "origin": "Africa and Asia",
-    "description": "Elephants are the largest land animals, known for their intelligence, trunks, and tusks."
+    "habitat": "African savannas, dense tropical forests, woodland areas, grasslands, river valleys, and various habitat types across their range",
+    "origin": "Two distinct species: African elephants across sub-Saharan Africa and Asian elephants in South and Southeast Asia",
+    "description": "Elephants are the largest terrestrial animals on Earth, renowned for their remarkable intelligence, complex social structures, and exceptional memory. These gentle giants use their versatile trunks for breathing, smelling, drinking, grasping objects, and communicating, while their iconic ivory tusks are actually elongated incisor teeth used for digging and defense."
   },
   {
-    "common_name": "zebra",
+    "name": "zebra",
     "scientific_name": "Equus quagga",
-    "habitat": "Grasslands, savannas",
-    "origin": "Africa",
-    "description": "Zebras are African herbivores known for their distinctive black-and-white striped coats."
+    "habitat": "Open grasslands, savannas, woodland edges, scrubland areas, and plains with access to water sources throughout the region",
+    "origin": "Native to eastern and southern Africa, ranging from Ethiopia and Kenya to South Africa",
+    "description": "Zebras are striking African herbivores instantly recognizable by their unique black-and-white striped coat patterns, which serve as camouflage and individual identification. These highly social animals live in family groups called harems and migrate in large herds alongside wildebeest, constantly moving in search of fresh grazing areas and water."
   },
   {
-    "common_name": "dog",
+    "name": "dog",
     "scientific_name": "Canis lupus familiaris",
-    "habitat": "Domestic environments",
-    "origin": "Domesticated worldwide",
-    "description": "Dogs are domesticated mammals known for their loyalty, intelligence, and companionship with humans."
+    "habitat": "Diverse domestic environments including homes, farms, urban areas, rural settings, and working environments worldwide",
+    "origin": "Domesticated from gray wolves over 15,000 years ago, now distributed globally across all inhabited continents",
+    "description": "Dogs are highly intelligent domesticated mammals that have been selectively bred into hundreds of distinct breeds, each with unique characteristics and purposes. Known for their unwavering loyalty, trainability, and strong bonds with humans, they serve various roles including companionship, protection, hunting, herding, service work, and emotional support throughout human societies."
   },
   {
-    "common_name": "cat",
+    "name": "cat",
     "scientific_name": "Felis catus",
-    "habitat": "Domestic environments",
-    "origin": "Domesticated worldwide",
-    "description": "Cats are small domesticated carnivores valued for their agility and independent behavior."
+    "habitat": "Primarily domestic indoor and outdoor environments, urban neighborhoods, farms, and human settlements across the globe",
+    "origin": "Domesticated from African wildcats approximately 9,000 years ago in the Near East, now worldwide",
+    "description": "Cats are small, agile domesticated carnivores highly valued for their independent nature, exceptional hunting skills, and low-maintenance companionship. These graceful predators possess remarkable reflexes, retractable claws, acute senses especially night vision and hearing, and flexible bodies that allow them to squeeze through tight spaces and always land on their feet."
   },
   {
-    "common_name": "bear",
+    "name": "bear",
     "scientific_name": "Ursidae",
-    "habitat": "Forests, mountains, tundra",
-    "origin": "North America, Europe, Asia",
-    "description": "Bears are large mammals with strong builds, found in diverse habitats across the northern hemisphere."
+    "habitat": "Diverse habitats including dense forests, mountainous regions, arctic tundra, grasslands, and coastal areas with seasonal variations",
+    "origin": "Native to North America, Europe, and Asia with eight distinct species distributed across the Northern Hemisphere",
+    "description": "Bears are large, powerful mammals with robust builds, strong limbs, and non-retractable claws adapted for digging, climbing, and hunting. Despite their intimidating appearance and carnivore classification, most bear species are omnivorous, consuming a varied diet of plants, berries, fish, insects, and occasionally larger prey depending on seasonal availability and habitat."
   },
   {
-    "common_name": "wolf",
+    "name": "wolf",
     "scientific_name": "Canis lupus",
-    "habitat": "Forests, tundra, grasslands",
-    "origin": "North America, Europe, Asia",
-    "description": "Wolves are highly social carnivores that live and hunt in organized packs."
+    "habitat": "Boreal forests, tundra regions, temperate woodlands, grasslands, mountains, and remote wilderness areas with minimal human presence",
+    "origin": "Historically widespread across North America, Europe, and Asia, now with more restricted ranges in wilderness areas",
+    "description": "Wolves are highly intelligent and social carnivores that live, hunt, and cooperate in organized family packs with complex hierarchies and communication systems. These skilled predators play a vital ecological role as keystone species, controlling prey populations and maintaining ecosystem balance through their hunting of deer, elk, and other large herbivores across diverse landscapes."
   },
   {
-    "common_name": "deer",
+    "name": "deer",
     "scientific_name": "Cervidae",
-    "habitat": "Forests, grasslands",
-    "origin": "Worldwide",
-    "description": "Deer are herbivorous mammals known for males growing antlers and their agile movement."
+    "habitat": "Mixed forests, deciduous and coniferous woodlands, grasslands, meadows, marshlands, and edge habitats between forest and open areas",
+    "origin": "Native to all continents except Antarctica and Australia, with diverse species distributed globally across suitable habitats",
+    "description": "Deer are graceful herbivorous mammals characterized by their slender legs, split hooves, and the males' distinctive antlers that are shed and regrown annually. These adaptable animals are known for their acute senses, particularly hearing and smell, their remarkable leaping ability to escape predators, and their important role in forest ecosystems through seed dispersal and vegetation management."
   },
   {
-    "common_name": "monkey",
+    "name": "monkey",
     "scientific_name": "Simiiformes",
-    "habitat": "Forests, grasslands, mountains",
-    "origin": "Africa, Asia, Central and South America",
-    "description": "Monkeys are intelligent primates known for social behavior and dexterity."
+    "habitat": "Tropical and subtropical forests, rainforests, woodlands, savannas, grasslands, mountainous regions, and various arboreal environments",
+    "origin": "Distributed across Africa, Asia, Central America, and South America with diverse species adapted to regional ecosystems",
+    "description": "Monkeys are highly intelligent primates known for their exceptional social behavior, complex communication systems, and remarkable manual dexterity with opposable thumbs. These adaptable animals live in organized troops with established hierarchies, use tools in some species, display emotional intelligence, and play crucial roles in their ecosystems through seed dispersal and insect control while foraging."
   }
 ]

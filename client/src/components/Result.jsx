@@ -1,200 +1,204 @@
 import React from 'react';
+import { BiSearchAlt, BiWorld } from 'react-icons/bi';
+import { GiBirdHouse, GiFlowerPot, GiLion } from 'react-icons/gi';
+import { MdCheckCircle, MdScience, MdLocationOn } from 'react-icons/md';
+import { TbPercentage } from 'react-icons/tb';
 
 function Result({ geminiResult }) {
-  const formatLabel = (key) => {
-    // Handle specific cases first
-    if (key.toLowerCase() === 'scientific_name') {
-      return 'Scientific Name';
-    }
-    return key
-      .replace(/([A-Z])/g, ' $1') // Add space before capital letters
-      .replace(/_/g, ' ') // Replace underscores with spaces
-      .replace(/^./, (str) => str.toUpperCase()) // Capitalize first letter
-      .replace(/\b\w/g, (char) => char.toUpperCase()); // Capitalize each word
-  };
-
-  const renderValue = (value) => {
-    if (Array.isArray(value)) {
-      return (
-        <div className="d-flex flex-wrap gap-2">
-          {value.map((item, index) => (
-            <span
-              key={index}
-              className="badge bg-success bg-opacity-25 text-success px-3 py-2"
-              style={{
-                border: '1px solid rgba(25, 135, 84, 0.3)',
-                borderRadius: '15px',
-                fontSize: '0.9rem',
-                fontWeight: '500',
-              }}
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-      );
-    }
-    return <span>{value}</span>;
-  };
-
+  console.log(geminiResult);
   return (
     <div 
-      className={`rounded-4 shadow-lg overflow-hidden slide-in-right ${geminiResult ? '' : 'border border-success border-2'}`}
+      className={`rounded-4 shadow-lg overflow-hidden slide-in-right`}
       style={{ 
-        background: "white",
+        background: "var(--dark-card)",
+        border: geminiResult ? "none" : "1px solid var(--accent-green)"
       }}
     >
       <div className="card-body p-0">
         {/* Header */}
         <div 
-          className="text-center py-4 nature-gradient text-white position-relative"
+          className="text-center py-3 text-white position-relative"
           style={{
             background: geminiResult 
-              ? "linear-gradient(135deg, #2e7d32 0%, #43a047 50%, #66bb6a 100%)"
-              : "linear-gradient(135deg, #81c784 0%, #a5d6a7 100%)"
+              ? "linear-gradient(135deg, var(--accent-green-dim) 0%, var(--accent-blue-dim) 100%)"
+              : "linear-gradient(135deg, rgba(63, 185, 80, 0.3) 0%, rgba(88, 166, 255, 0.3) 100%)"
           }}
         >
-          <div className="d-flex justify-content-center align-items-center gap-3">
+          <div className="d-flex justify-content-center align-items-center gap-2">
             <div
-              className="bg-white rounded-circle d-flex align-items-center justify-content-center pulse"
+              className="rounded-circle d-flex align-items-center justify-content-center"
               style={{
-                width: '60px',
-                height: '60px',
-                boxShadow: "0 4px 15px rgba(0,0,0,0.2)"
+                width: '40px',
+                height: '40px',
+                background: "var(--dark-card)",
+                boxShadow: "0 4px 15px rgba(0,0,0,0.3)"
               }}
             >
-              <span style={{ fontSize: '2rem' }}>
-                {geminiResult ? "✨" : "🔍"}
-              </span>
+              {geminiResult ? <MdCheckCircle size={24} color="var(--accent-green)" /> : <BiSearchAlt size={24} color="var(--accent-blue)" />}
             </div>
             <h3
               className="fw-bold mb-0"
               style={{
-                fontSize: "2rem",
-                letterSpacing: "1.5px",
-                textShadow: "2px 2px 4px rgba(0,0,0,0.2)"
+                fontSize: "1.3rem",
+                letterSpacing: "0.5px",
+                color: "var(--text-primary)"
               }}
             >
-              {geminiResult ? "🎉 Analysis Result" : "Awaiting Analysis"}
+              {geminiResult ? "Analysis Result" : "Awaiting Analysis"}
             </h3>
           </div>
         </div>
 
         {/* Content */}
-        <div className="px-4 py-4">
+        <div className="px-3 py-3">
           {geminiResult ? (
-            <div className="row g-4">
-              {Object.entries(geminiResult).map(([key, value], index) => (
-                <div 
-                  key={key} 
-                  className="col-12 fade-in"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <div
-                    className="p-4 rounded-4 shadow-sm"
-                    style={{
-                      background: index % 2 === 0 
-                        ? 'linear-gradient(135deg, #f1f8e9 0%, #ffffff 100%)' 
-                        : 'linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%)',
-                      border: '2px solid #e0e0e0',
-                      transition: 'all 0.3s ease',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateX(10px)';
-                      e.currentTarget.style.borderColor = 'var(--nature-green)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateX(0)';
-                      e.currentTarget.style.borderColor = '#e0e0e0';
-                    }}
-                  >
-                    <div className="row align-items-start">
-                      <div className="col-md-4 mb-3 mb-md-0">
-                        <div className="d-flex align-items-center gap-3">
-                          <div
-                            className="nature-gradient"
-                            style={{
-                              width: '8px',
-                              height: '32px',
-                              borderRadius: '4px',
-                              boxShadow: '0 2px 8px rgba(46, 125, 50, 0.3)'
-                            }}
-                          />
-                          <h6
-                            className="mb-0 fw-bold"
-                            style={{
-                              fontSize: "1.1rem",
-                              letterSpacing: "0.5px",
-                              color: "var(--nature-dark-green)"
-                            }}
-                          >
-                            {formatLabel(key)}
-                          </h6>
-                        </div>
-                      </div>
-                      <div className="col-md-8">
-                        <div
-                          className="text-dark"
-                          style={{
-                            fontSize: "1.05rem",
-                            lineHeight: "1.8",
-                            fontWeight: "500",
-                          }}
-                        >
-                          {renderValue(value)}
+            <div>
+              {/* Common Name and Scientific Name */}
+              <div className="mb-3">
+                {geminiResult.info.name && (
+                  <div className="mb-2 p-2 rounded-2" style={{ background: "var(--dark-surface)", border: "1px solid var(--dark-border)" }}>
+                    <div className="d-flex align-items-center gap-2">
+                      <span className="fw-semibold" style={{ fontSize: "0.85rem", color: "var(--accent-green)", minWidth: "120px" }}>
+                        Common Name:
+                      </span>
+                      <span style={{ fontSize: "0.9rem", color: "var(--text-primary)" }}>
+                        {geminiResult.info.name}
+                      </span>
+                    </div>
+                  </div>
+                )}
+                
+                {geminiResult.info.scientific_name && (
+                  <div className="mb-2 p-2 rounded-2" style={{ background: "var(--dark-surface)", border: "1px solid var(--dark-border)" }}>
+                    <div className="d-flex align-items-center gap-2">
+                      <MdScience size={16} color="var(--accent-blue)" style={{ flexShrink: 0 }} />
+                      <span className="fw-semibold" style={{ fontSize: "0.85rem", color: "var(--accent-green)", minWidth: "110px" }}>
+                        Scientific Name:
+                      </span>
+                      <span className="fst-italic" style={{ fontSize: "0.9rem", color: "var(--text-secondary)" }}>
+                        {geminiResult.info.scientific_name}
+                      </span>
+                    </div>
+                  </div>
+                )}
+                
+                {/* Confidence Score - Less Significant */}
+                {geminiResult.confidence && (
+                  <div className="p-2 rounded-2 d-flex align-items-center justify-content-between" style={{ background: "var(--dark-surface)", border: "1px solid var(--dark-border)" }}>
+                    <div className="d-flex align-items-center gap-2">
+                      <TbPercentage size={14} color="var(--text-muted)" />
+                      <span style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>
+                        Confidence:
+                      </span>
+                    </div>
+                    <span className="fw-semibold" style={{ 
+                      fontSize: "0.85rem", 
+                      color: geminiResult.confidence <= 40 ? "#f85149" : "var(--accent-green)"
+                    }}>
+                      {geminiResult.confidence <= 40 ? "Not Confident" : `${geminiResult.confidence}%`}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              {/* Description */}
+              {geminiResult.info.description && (
+                <div className="mb-3 p-3 rounded-3" style={{ background: "var(--dark-surface)", border: "1px solid var(--dark-border)" }}>
+                  <div className="fw-semibold mb-1" style={{ fontSize: "0.85rem", color: "var(--accent-green)" }}>
+                    Description
+                  </div>
+                  <p className="mb-0" style={{ fontSize: "0.9rem", lineHeight: "1.6", color: "var(--text-secondary)" }}>
+                    {geminiResult.info.description}
+                  </p>
+                </div>
+              )}
+
+              {/* Habitat and Origin */}
+              <div className="row g-2 mb-2">
+                {geminiResult.info.habitat && (
+                  <div className="col-md-6">
+                    <div className="p-3 rounded-3 h-100" style={{ background: "var(--dark-surface)", border: "1px solid var(--dark-border)" }}>
+                      <div className="d-flex align-items-start gap-2">
+                        <BiWorld size={20} color="var(--accent-blue)" style={{ marginTop: "2px", flexShrink: 0 }} />
+                        <div>
+                          <div className="fw-semibold mb-1" style={{ fontSize: "0.85rem", color: "var(--accent-green)" }}>
+                            Habitat
+                          </div>
+                          <div style={{ fontSize: "0.9rem", lineHeight: "1.5", color: "var(--text-secondary)" }}>
+                            {geminiResult.info.habitat}
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                )}
+                
+                {geminiResult.info.origin && (
+                  <div className="col-md-6">
+                    <div className="p-3 rounded-3 h-100" style={{ background: "var(--dark-surface)", border: "1px solid var(--dark-border)" }}>
+                      <div className="d-flex align-items-start gap-2">
+                        <MdLocationOn size={20} color="var(--accent-blue)" style={{ marginTop: "2px", flexShrink: 0 }} />
+                        <div>
+                          <div className="fw-semibold mb-1" style={{ fontSize: "0.85rem", color: "var(--accent-green)" }}>
+                            Origin
+                          </div>
+                          <div style={{ fontSize: "0.9rem", lineHeight: "1.5", color: "var(--text-secondary)" }}>
+                            {geminiResult.info.origin}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           ) : (
-            <div className="text-center py-5 px-3">
+            <div className="text-center py-4 px-3">
               <div
-                className="mb-4 border rounded-circle d-flex align-items-center justify-content-center mx-auto pulse"
+                className="mb-3 border rounded-circle d-flex align-items-center justify-content-center mx-auto"
                 style={{
-                  width: '120px',
-                  height: '120px',
-                  background: 'linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%)',
-                  border: '3px solid var(--nature-light-green)'
+                  width: '80px',
+                  height: '80px',
+                  background: 'linear-gradient(135deg, rgba(63, 185, 80, 0.2) 0%, rgba(88, 166, 255, 0.2) 100%)',
+                  border: '2px solid var(--accent-blue)'
                 }}
               >
-                <span style={{ fontSize: '4rem' }}>🔍</span>
+                <BiSearchAlt size={40} color="var(--accent-blue)" />
               </div>
               <h4
-                className="fw-bold mb-3"
+                className="fw-bold mb-2"
                 style={{
-                  fontSize: "1.8rem",
-                  letterSpacing: "0.5px",
-                  color: "var(--nature-green)"
+                  fontSize: "1.2rem",
+                  letterSpacing: "0.3px",
+                  color: "var(--accent-green)"
                 }}
               >
                 Ready to Discover
               </h4>
               <p
-                className="text-muted mb-4"
+                className="mb-3"
                 style={{
-                  fontSize: "1.1rem",
-                  lineHeight: "1.6",
-                  maxWidth: "400px",
-                  margin: "0 auto"
+                  fontSize: "0.9rem",
+                  lineHeight: "1.5",
+                  maxWidth: "350px",
+                  margin: "0 auto",
+                  color: "var(--text-secondary)"
                 }}
               >
-                Upload an image and select a category to begin your nature exploration journey! 🌿
+                Upload an image and select a category to begin your nature exploration journey!
               </p>
-              <div className="d-flex justify-content-center gap-3 mt-4">
+              <div className="d-flex justify-content-center gap-3 mt-3">
                 <div className="text-center">
-                  <div style={{ fontSize: "2.5rem" }}>🦅</div>
-                  <small className="text-muted">Birds</small>
+                  <GiBirdHouse size={32} color="var(--accent-blue)" />
+                  <div><small style={{ color: "var(--text-muted)" }}>Birds</small></div>
                 </div>
                 <div className="text-center">
-                  <div style={{ fontSize: "2.5rem" }}>🌸</div>
-                  <small className="text-muted">Plants</small>
+                  <GiFlowerPot size={32} color="var(--accent-green)" />
+                  <div><small style={{ color: "var(--text-muted)" }}>Plants</small></div>
                 </div>
                 <div className="text-center">
-                  <div style={{ fontSize: "2.5rem" }}>🦁</div>
-                  <small className="text-muted">Animals</small>
+                  <GiLion size={32} color="var(--accent-cyan)" />
+                  <div><small style={{ color: "var(--text-muted)" }}>Animals</small></div>
                 </div>
               </div>
             </div>

@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
+import { BiLeaf, BiRocket, BiBook } from "react-icons/bi";
+import { GiBirdHouse, GiFlowerPot, GiLion } from "react-icons/gi";
 
 function Home() {
   const [isVisible, setIsVisible] = useState(false);
@@ -11,132 +13,136 @@ function Home() {
 
   return (
     <div 
-      className="container-fluid nature-gradient text-white page-transition" 
-      style={{ minHeight: "100vh", position: "relative", overflow: "hidden" }}
+      className="container-fluid page-transition" 
+      style={{ 
+        minHeight: "100vh", 
+        position: "relative", 
+        overflow: "hidden",
+        background: "linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-surface) 50%, var(--dark-card) 100%)"
+      }}
     >
-      {/* Animated background elements */}
-      <div style={{
-        position: "absolute",
-        top: "10%",
-        left: "5%",
-        fontSize: "80px",
-        opacity: 0.1,
-        animation: "pulse 3s ease-in-out infinite"
-      }}>🌿</div>
-      <div style={{
-        position: "absolute",
-        top: "60%",
-        right: "10%",
-        fontSize: "100px",
-        opacity: 0.1,
-        animation: "pulse 4s ease-in-out infinite 1s"
-      }}>🦋</div>
-      <div style={{
-        position: "absolute",
-        bottom: "15%",
-        left: "15%",
-        fontSize: "70px",
-        opacity: 0.1,
-        animation: "pulse 3.5s ease-in-out infinite 0.5s"
-      }}>🌺</div>
-
-
       <div 
         className={`d-flex flex-column justify-content-center align-items-center ${isVisible ? 'fade-in' : ''}`}
-        style={{ marginTop: "120px", padding: "20px" }}
+        style={{ marginTop: "80px", padding: "20px" }}
       >
-        <div className="text-center mb-5">
-          <h1 
-            className="display-2 fw-bold mb-4" 
-            style={{ 
-              textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
-              letterSpacing: "2px"
-            }}
-          >
-            🌿 Nature Scan 🦜
-          </h1>
+        <div className="text-center mb-4">
+          <div className="d-flex align-items-center justify-content-center gap-2 mb-3">
+            <BiLeaf size={40} color="var(--accent-green)" />
+            <h1 
+              className="display-4 fw-bold mb-0" 
+              style={{ 
+                background: "linear-gradient(135deg, var(--accent-green), var(--accent-blue))",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                letterSpacing: "1px"
+              }}
+            >
+              Nature Scan
+            </h1>
+          </div>
           <p 
-            className="lead text-light fs-4 mb-4" 
+            className="lead mb-3" 
             style={{ 
-              maxWidth: "700px", 
-              lineHeight: "1.8",
-              textShadow: "1px 1px 2px rgba(0,0,0,0.2)"
+              maxWidth: "600px", 
+              lineHeight: "1.6",
+              fontSize: "1.1rem",
+              color: "var(--text-secondary)"
             }}
           >
             Discover the wonders of nature! Upload an image and let AI identify birds, plants, and animals instantly.
           </p>
           
-          <div className="d-flex gap-3 justify-content-center flex-wrap mt-5">
+          <div className="d-flex gap-3 justify-content-center flex-wrap mt-4">
             <Link 
               to="/upload" 
-              className="btn btn-light btn-lg px-5 py-3 shadow-lg"
+              className="btn px-4 py-2 shadow"
               style={{
-                background: "white",
-                color: "var(--nature-green)",
+                background: "linear-gradient(135deg, var(--accent-green-dim), var(--accent-blue-dim))",
+                color: "white",
                 fontWeight: "600",
-                borderRadius: "50px",
-                fontSize: "1.2rem"
+                borderRadius: "25px",
+                fontSize: "1rem",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                border: "none"
               }}
             >
-              🚀 Get Started
+              <BiRocket size={20} />
+              Get Started
             </Link>
             <Link 
               to="/about" 
-              className="btn btn-outline-light btn-lg px-5 py-3 shadow-lg"
+              className="btn px-4 py-2 shadow"
               style={{
-                borderWidth: "2px",
-                borderRadius: "50px",
-                fontSize: "1.2rem",
-                fontWeight: "600"
+                background: "transparent",
+                border: "2px solid var(--dark-border)",
+                borderRadius: "25px",
+                fontSize: "1rem",
+                fontWeight: "600",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                color: "var(--text-primary)"
               }}
             >
-              📖 Learn More
+              <BiBook size={20} />
+              Learn More
             </Link>
           </div>
         </div>
 
         {/* Feature cards */}
-        <div className="row mt-5 g-4 w-100" style={{ maxWidth: "1000px" }}>
+        <div className="row mt-4 g-3 w-100" style={{ maxWidth: "900px" }}>
           <div className="col-md-4">
             <div 
-              className="card h-100 text-center p-4 border-0 slide-in-left"
+              className="card h-100 text-center p-3 border-0 slide-in-left no-hover"
               style={{ 
-                background: "rgba(255, 255, 255, 0.95)",
-                borderRadius: "20px",
+                background: "var(--dark-card)",
+                borderRadius: "15px",
+                border: "1px solid var(--dark-border) !important",
                 animationDelay: "0.2s"
               }}
             >
-              <div style={{ fontSize: "4rem" }}>🦅</div>
-              <h4 className="text-success fw-bold mt-3">Birds</h4>
-              <p className="text-muted">Identify bird species with incredible accuracy</p>
+              <div className="d-flex justify-content-center">
+                <GiBirdHouse size={50} color="var(--accent-blue)" />
+              </div>
+              <h5 className="fw-bold mt-2 mb-1" style={{ color: "var(--accent-green)" }}>Birds</h5>
+              <p className="mb-0" style={{ fontSize: "0.9rem", color: "var(--text-secondary)" }}>Identify bird species with incredible accuracy</p>
             </div>
           </div>
           <div className="col-md-4">
             <div 
-              className="card h-100 text-center p-4 border-0 fade-in"
+              className="card h-100 text-center p-3 border-0 fade-in no-hover"
               style={{ 
-                background: "rgba(255, 255, 255, 0.95)",
-                borderRadius: "20px",
+                background: "var(--dark-card)",
+                borderRadius: "15px",
+                border: "1px solid var(--dark-border) !important",
                 animationDelay: "0.4s"
               }}
             >
-              <div style={{ fontSize: "4rem" }}>🌸</div>
-              <h4 className="text-success fw-bold mt-3">Plants</h4>
-              <p className="text-muted">Discover plant species and their properties</p>
+              <div className="d-flex justify-content-center">
+                <GiFlowerPot size={50} color="var(--accent-green)" />
+              </div>
+              <h5 className="fw-bold mt-2 mb-1" style={{ color: "var(--accent-green)" }}>Plants</h5>
+              <p className="mb-0" style={{ fontSize: "0.9rem", color: "var(--text-secondary)" }}>Discover plant species and their properties</p>
             </div>
           </div>
           <div className="col-md-4">
             <div 
-              className="card h-100 text-center p-4 border-0 slide-in-right"
+              className="card h-100 text-center p-3 border-0 slide-in-right no-hover"
               style={{ 
-                background: "rgba(255, 255, 255, 0.95)",
-                borderRadius: "20px",
+                background: "var(--dark-card)",
+                borderRadius: "15px",
+                border: "1px solid var(--dark-border) !important",
                 animationDelay: "0.6s"
               }}
             >
-              <div style={{ fontSize: "4rem" }}>🦁</div>
-              <h4 className="text-success fw-bold mt-3">Animals</h4>
-              <p className="text-muted">Recognize wildlife from around the world</p>
+              <div className="d-flex justify-content-center">
+                <GiLion size={50} color="var(--accent-cyan)" />
+              </div>
+              <h5 className="fw-bold mt-2 mb-1" style={{ color: "var(--accent-green)" }}>Animals</h5>
+              <p className="mb-0" style={{ fontSize: "0.9rem", color: "var(--text-secondary)" }}>Recognize wildlife from around the world</p>
             </div>
           </div>
         </div>

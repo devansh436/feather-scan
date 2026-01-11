@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
+import "./index.css";
 
 import UploadPage from "./pages/UploadPage.jsx";
 import Home from "./pages/Home.jsx";
@@ -28,11 +28,13 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
+          <Route path='*' element={<Navigate to='/home' replace/>} />
+
           {/* public path */}
           <Route path="/login" element={<Login />} />
           
           {/* private paths, only accessed if auth-ed user */}
-          <Route path="/" element={
+          <Route path="/home" element={
             <ProtectedRoute>
               <Home />
             </ProtectedRoute>

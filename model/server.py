@@ -45,7 +45,7 @@ load_static_data()
 def get_static_info(species_type: str, label: str) -> Optional[Dict]:
     label = label.lower()
     for item in STATIC_DATA.get(species_type, []):
-        if item.get("common_name", "").lower() == label:
+        if item.get("name", "").lower() == label:
             return item
     return None
 
@@ -83,12 +83,10 @@ Rules:
 """
 
     try:
-        print('Sending prompt...')
         response = client.models.generate_content(
             model=MODEL_NAME,
             contents=prompt        
         )    
-        print('Response received...')
         text = response.candidates[0].content.parts[0].text
         data = json.loads(text)
         llm_cache[label] = data
@@ -120,7 +118,6 @@ async def predict(
             label, confidence = classify_bird_or_plant(image, model_type)
         
         species_info = await get_species_info(model_type, label, confidence)
-        
 
         return {
             "label": label,

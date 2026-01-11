@@ -1,21 +1,148 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
+/* Dark Mode Theme with Blue & Green accents */
+:root {
+  --dark-bg: #0d1117;
+  --dark-surface: #161b22;
+  --dark-card: #21262d;
+  --dark-border: #30363d;
+  --accent-blue: #58a6ff;
+  --accent-blue-dim: #388bfd;
+  --accent-green: #3fb950;
+  --accent-green-dim: #238636;
+  --accent-cyan: #39d5ff;
+  --text-primary: #e6edf3;
+  --text-secondary: #8b949e;
+  --text-muted: #6e7681;
+  /* Legacy support */
+  --nature-green: #3fb950;
+  --nature-light-green: #56d364;
+  --nature-dark-green: #238636;
+  --nature-accent: #58a6ff;
+  --nature-bg: #0d1117;
+}
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+    transition: all 0.3s ease;
+
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  font-family: 'Nunito Sans', sans-serif;
+  background: var(--dark-bg);
   min-height: 100vh;
+  color: var(--text-primary);
 }
 
-/* Smooth transitions */
-* {
-  transition: all 0.3s ease;
+
+/* --- Begin App.css styles merged --- */
+.app-container {
+  min-height: 100vh;
+  font-family: 'Nunito Sans', sans-serif;
+  background: var(--dark-bg);
 }
+
+.page-wrapper {
+  animation: pageSlideIn 0.5s ease-out;
+}
+
+@keyframes pageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nature-shadow {
+  box-shadow: 0 10px 30px rgba(88, 166, 255, 0.1);
+}
+
+.nature-shadow-lg {
+  box-shadow: 0 20px 60px rgba(88, 166, 255, 0.15);
+}
+
+.btn-nature {
+  background: linear-gradient(135deg, var(--accent-green-dim) 0%, var(--accent-blue-dim) 100%);
+  border: none;
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-nature:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 15px 35px rgba(88, 166, 255, 0.3);
+  color: white;
+}
+
+.img-hover-zoom {
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.img-hover-zoom img {
+  transition: transform 0.5s ease;
+}
+
+.img-hover-zoom:hover img {
+  transform: scale(1.15) rotate(2deg);
+}
+
+.loading-nature {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(88, 166, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--accent-blue);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+/* --- End App.css styles merged --- */
 
 /* Card animations */
 .card { 
@@ -23,11 +150,23 @@ body {
   cursor: pointer;
   border: none !important;
   overflow: hidden;
+  background: var(--dark-card) !important;
+  color: var(--text-primary);
 }
 
 .card:hover {
   transform: translateY(-10px) scale(1.03);
-  box-shadow: 0 20px 40px rgba(46, 125, 50, 0.3) !important;
+  box-shadow: 0 20px 40px rgba(88, 166, 255, 0.15) !important;
+}
+
+/* Disable hover for static cards */
+.card.no-hover {
+  cursor: default;
+}
+
+.card.no-hover:hover {
+  transform: none;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3) !important;
 }
 
 /* Fade in animation */
@@ -92,9 +231,9 @@ body {
   animation: pulse 2s ease-in-out infinite;
 }
 
-/* Gradient background */
+/* Gradient background - Dark mode */
 .nature-gradient {
-  background: linear-gradient(135deg, #2e7d32 0%, #43a047 50%, #66bb6a 100%);
+  background: linear-gradient(135deg, #238636 0%, #1f6feb 50%, #58a6ff 100%);
 }
 
 /* Button hover effects */
@@ -106,7 +245,7 @@ body {
 
 .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 20px rgba(88, 166, 255, 0.2);
 }
 
 /* Smooth page transitions */
@@ -114,11 +253,59 @@ body {
   animation: fadeIn 0.5s ease-in;
 }
 
-/* Nature-themed colors */
-:root {
-  --nature-green: #2e7d32;
-  --nature-light-green: #66bb6a;
-  --nature-dark-green: #1b5e20;
-  --nature-accent: #8bc34a;
-  --nature-bg: #f1f8e9;
+/* Text utilities for dark mode */
+.text-muted {
+  color: var(--text-secondary) !important;
+}
+
+/* Bootstrap overrides for dark mode */
+.bg-light {
+  background-color: var(--dark-surface) !important;
+}
+
+.bg-white {
+  background-color: var(--dark-card) !important;
+}
+
+.text-dark {
+  color: var(--text-primary) !important;
+}
+
+.text-success {
+  color: var(--accent-green) !important;
+}
+
+.border-success {
+  border-color: var(--accent-green) !important;
+}
+
+/* Form controls */
+.form-control {
+  background-color: var(--dark-surface);
+  border-color: var(--dark-border);
+  color: var(--text-primary);
+}
+
+.form-control:focus {
+  background-color: var(--dark-surface);
+  border-color: var(--accent-blue);
+  color: var(--text-primary);
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
+}
+
+.form-control::placeholder {
+  color: var(--text-muted);
+}
+
+/* Alert overrides */
+.alert-success {
+  background-color: rgba(63, 185, 80, 0.15);
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+}
+
+.alert-danger {
+  background-color: rgba(248, 81, 73, 0.15);
+  border-color: #f85149;
+  color: #f85149;
 }

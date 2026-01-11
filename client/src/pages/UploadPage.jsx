@@ -12,14 +12,13 @@ function UploadPage() {
     <div 
       className="page-transition"
       style={{ 
-        background: "linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 50%, #a5d6a7 100%)",
         minHeight: "100vh",
         overflowX: "hidden"
       }}
     >
 
-      <div className="container mt-5 mb-5">
-        <div className="row g-4 align-items-start">
+      <div className="container mt-4 mb-4">
+        <div className="row g-3 align-items-start">
           <div className="col-lg-6 d-flex justify-content-center">
             <UploadBox setGeminiResult={setGeminiResult} />
           </div>
@@ -32,7 +31,7 @@ function UploadPage() {
       </div>
 
       {/* Species cards */}
-      <div className="mt-5">
+      <div className="mt-4">
         <SpeciesInfo />
       </div>
     </div>
