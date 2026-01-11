@@ -64,7 +64,7 @@ app.post("/upload", upload.single("image"), async (req: Request, res: Response):
     });
 
     const response: ModelResponse = result.data;
-    console.log(response);
+    // console.log(response);
     if (response.error) return res.status(500).json({ error: response.error });
 
     return res.json({

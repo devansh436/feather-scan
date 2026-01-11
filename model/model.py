@@ -74,6 +74,11 @@ def classify_bird_or_plant(image: Image.Image, model_type: str):
         confidence = round(100 * probs[0, idx].item(), 2)
         label = model.config.id2label[idx].title()
 
+    if label == 'Gauva':
+        label = 'Guava'
+    elif label == 'Nooni':
+        label = 'Noni'
+    print(label)
     return label, confidence
 
 

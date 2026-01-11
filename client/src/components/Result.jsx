@@ -8,7 +8,7 @@ function Result({ geminiResult }) {
   console.log(geminiResult);
   return (
     <div 
-      className={`rounded-4 shadow-lg overflow-hidden slide-in-right`}
+      className={`rounded-4 overflow-hidden slide-in-right`}
       style={{ 
         background: "var(--dark-card)",
         border: geminiResult ? "none" : "1px solid var(--accent-green)"

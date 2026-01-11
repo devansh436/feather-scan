@@ -15,10 +15,10 @@ const birdData = [
     type: "animal",
   },
   {
-    name: "Mango",
-    scientificName: "Mangifera indica",
-    habitat: "Tropical and subtropical regions",
-    image: "/images/mango.png",
+    name: "Castor",
+    scientificName: "Ricinus communis",
+    habitat: "Tropical and subtropical regions, wastelands, riverbanks",
+    image: "/images/castor.webp",
     type: "plant",
   },  
   {
