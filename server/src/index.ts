@@ -1,19 +1,35 @@
+/*
+  - src/index.ts
+    - backend entry point
+    - loads environment
+    - initialises core services (db, auth)
+    - wires middleware, routes
+    - starts http server (app.listen)
+    - fail fast if bootstrapping fails (fail fast = fast crash when critical err)
+*/
+
 import express, { Request, Response } from "express"
 import cors from "cors";
 import multer, { memoryStorage } from "multer";
 import dotenv from "dotenv";
 import axios from 'axios';
 import FormData from 'form-data';
-import admin from 'firebase-admin';
-import serviceAccount from '../serviceAccountKey.json';
+import admin from './config/firebase';
+import connectDB from "./config/db";
+import historyRoutes from './routes/history';
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount as admin.ServiceAccount)
-});
+// Connect to mongoDB
+connectDB();
 
+// Load dotenv
 dotenv.config();
+
+// Create express app
 const app = express();
 app.use(cors());
+app.use(express.json());
+app.use('/history', historyRoutes);
+
 const PORT = process.env.PORT || 3000;
 const upload = multer({ storage: memoryStorage() });
 
@@ -26,12 +42,14 @@ type ModelResponse = {
   cached: boolean;
 };
 
-// GET
+/* ------------------ GET --------------------- */
+// testing route
 app.get("/test", (req: Request, res: Response) => {
   res.status(200).send("OK");
 });
 
-// POST
+/* ------------------ POST --------------------- */
+// Image upload
 app.post("/upload", upload.single("image"), async (req: Request, res: Response): Promise<any> => {
   try {
     if (!req.file) return res.status(400).json({ error: "No file uploaded" });
@@ -45,7 +63,7 @@ app.post("/upload", upload.single("image"), async (req: Request, res: Response):
       // Verify token to ensure authorized access
       await admin.auth().verifyIdToken(token);
     } catch (err) {
-      console.log("Auth error", err);
+      // console.log("Auth error", err);
       return res.status(401).json({ error: 'Authentication error.' });
     }
 
