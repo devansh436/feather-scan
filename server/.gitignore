@@ -5,3 +5,4 @@ __pycache__
 temp/
 uploads/
 serviceAccountKey.json
+revision.txt

@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    console.log(user);
+    if (user) console.log(user);
   }, [user]);
 
   if (loading) return null;
