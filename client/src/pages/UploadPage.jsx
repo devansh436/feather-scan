@@ -6,7 +6,7 @@ import Navbar from "../components/Navbar";
 import { useState } from "react";
 
 function UploadPage() {
-  const [geminiResult, setGeminiResult] = useState("");
+  const [predictionData, setPredictionData] = useState("");
 
   return (
     <div 
@@ -20,11 +20,11 @@ function UploadPage() {
       <div className="container mt-4 mb-4">
         <div className="row g-3 align-items-start">
           <div className="col-lg-6 d-flex justify-content-center">
-            <UploadBox setGeminiResult={setGeminiResult} />
+            <UploadBox setPredictionData={setPredictionData} />
           </div>
           <div className="col-lg-6 d-flex justify-content-center">
             <div style={{ width: "100%", maxWidth: "600px" }}>
-              <Result geminiResult={geminiResult} />
+              <Result predictionData={predictionData} />
             </div>
           </div>
         </div>

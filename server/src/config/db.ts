@@ -11,6 +11,8 @@
     - where credentials come from (.env)
     - when the app should fail (if db connection fails)
 */
+// value ? value : default
+// value ?? default
 import mongoose from 'mongoose';
 import 'dotenv/config';
 

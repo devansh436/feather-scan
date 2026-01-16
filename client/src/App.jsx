@@ -11,6 +11,7 @@ import Login from "./pages/Login.jsx";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import { Navigate } from "react-router-dom";
+import UserAccount from "./pages/UserAccount.jsx";
 
 function ProtectedRoute({ children }) {
   // if user is logged in, allowed in
@@ -28,27 +29,44 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route path='*' element={<Navigate to='/home' replace/>} />
+          <Route path="*" element={<Navigate to="/home" replace />} />
 
           {/* public path */}
           <Route path="/login" element={<Login />} />
-          
+
           {/* private paths, only accessed if auth-ed user */}
-          <Route path="/home" element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          } />
-          <Route path="/upload" element={
-            <ProtectedRoute>
-              <UploadPage />
-            </ProtectedRoute>
-          } />
-          <Route path="/about" element={
-            <ProtectedRoute>
-              <About />
-            </ProtectedRoute>
-          } />
+          <Route
+            path="/home"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/upload"
+            element={
+              <ProtectedRoute>
+                <UploadPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/about"
+            element={
+              <ProtectedRoute>
+                <About />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/account"
+            element={
+              <ProtectedRoute>
+                <UserAccount />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
         <Footer />
       </Router>

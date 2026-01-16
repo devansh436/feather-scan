@@ -13,4 +13,5 @@ if (admin.apps.length === 0) {
   });
 }
 
+// export already initialised admin app
 export default admin;

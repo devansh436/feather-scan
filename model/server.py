@@ -106,7 +106,7 @@ async def predict(
         raise HTTPException(400, "Invalid model type")
     
     image_bytes = await image.read()
-    if len(image_bytes) > 5 * 1024 * 1024:
+    if len(image_bytes) > 10 * 1024 * 1024:
         raise HTTPException(status_code=413, detail="File too large.")
     
     image = Image.open(io.BytesIO(image_bytes)).convert("RGB")

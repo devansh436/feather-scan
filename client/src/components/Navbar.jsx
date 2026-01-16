@@ -7,6 +7,7 @@ import {
   BiUpload,
   BiInfoCircle,
   BiLogOut,
+  BiSolidUserCircle,
 } from "react-icons/bi";
 // import { getAuth, getIdToken } from "firebase/auth";
 
@@ -14,20 +15,6 @@ function Navbar() {
   const location = useLocation();
 
   const isActive = (path) => location.pathname === path;
-
-  // const triggerHistory = async () => {
-  //   const auth = getAuth();
-  //   const token = await getIdToken(auth.currentUser);
-  //   const res = await fetch(`http://localhost:3000/history`, {
-  //     method: "GET",
-  //     headers: {
-  //       'Authorization': `Bearer ${token}`
-  //     },
-  //   });
-  //   const data = await res.json();
-  //   console.log(data);
-  // };
-
 
   return (
     <nav
@@ -106,6 +93,22 @@ function Navbar() {
               <BiUpload size={18} /> Upload
             </Link>
             <Link
+              to="/account"
+              className="btn rounded-pill fw-bold px-4 py-2 d-flex align-items-center gap-1"
+              style={{
+                minWidth: "100px",
+                background: isActive("/account")
+                  ? "linear-gradient(135deg, var(--accent-green-dim), var(--accent-blue-dim))"
+                  : "transparent",
+                border: isActive("/account")
+                  ? "none"
+                  : "1px solid var(--dark-border)",
+                color: "var(--text-primary)",
+              }}
+            >
+              <BiSolidUserCircle size={18} /> Account
+            </Link>
+            <Link
               to="/about"
               className="btn rounded-pill fw-bold px-4 py-2 d-flex align-items-center gap-1"
               style={{
@@ -121,6 +124,7 @@ function Navbar() {
             >
               <BiInfoCircle size={18} /> About
             </Link>
+
             <button
               className="btn rounded-pill fw-bold px-4 py-2 d-flex align-items-center gap-1"
               style={{
@@ -133,7 +137,6 @@ function Navbar() {
             >
               <BiLogOut size={18} /> Logout
             </button>
-            {/* <button onClick={triggerHistory}>history</button> */}
           </div>
         </div>
       </div>

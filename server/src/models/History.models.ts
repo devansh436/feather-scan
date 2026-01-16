@@ -1,12 +1,12 @@
 /*
-  dirname => "models"
-  - defines structure of data
-  - contraints, relationships & persistence rules
-
-  /models/History.ts
-  - this means that History.ts defines what a 
-    History entity (table/collection) is and how it persists.
-  - just defines History entity's schema, constraints etc.
+*  src/models
+*  - defines structure of data
+*  - contraints, relationships & persistence rules
+*
+*  History.ts
+*  - this means that History.ts defines what a 
+*    History entity (table/collection) is and how it persists.
+*  - just defines History entity's schema, constraints etc.
 */
 import mongoose from 'mongoose';
 
@@ -37,5 +37,8 @@ const historySchema = new mongoose.Schema(
     timestamps: true
   }
 );
+
+// Indexing: speeds up frequent queries by letting DB avoid full scans.
+historySchema.index({ userId: 1, createdAt: -1 });
 
 export default mongoose.model("History", historySchema);

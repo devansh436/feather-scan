@@ -10,11 +10,13 @@
 import { Request, Response, NextFunction } from 'express';
 import admin from '../config/firebase';
 
+// Create a child class of 'Request' containing additional 'user' prop
 export interface AuthRequest extends Request {
   user?: admin.auth.DecodedIdToken;
 }
 
-const authMiddleWare = async(
+// A function that extracts & attaches 'user' token to HTTP requests
+const authMiddleware = async(
   req: AuthRequest,
   res: Response,
   next: NextFunction
@@ -31,7 +33,7 @@ const authMiddleWare = async(
     const token = authHeader.split(" ")[1];
 
     // a JSON object w properties like: uid, email, name, etc.
-    // it is safe to use, bcz server generated, expiry checked
+    // it is safe to use bcz server generated, expiry checked
     const decodedToken = await admin.auth().verifyIdToken(token);
 
     req.user = decodedToken;
@@ -41,4 +43,4 @@ const authMiddleWare = async(
   }
 };
 
-export default authMiddleWare;
+export default authMiddleware;

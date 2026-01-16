@@ -4,8 +4,9 @@ import { auth } from "../lib/firebase.js";
 import { BiUpload, BiRocket, BiArrowBack } from "react-icons/bi";
 import { GiBirdHouse, GiFlowerPot, GiLion } from "react-icons/gi";
 import { MdCheckCircle, MdFolder } from "react-icons/md";
+import { historyAPI, uploadImage } from "../services/api.js";
 
-function UploadBox({ setGeminiResult }) {
+function UploadBox({ setPredictionData }) {
   const [file, setFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -54,39 +55,34 @@ function UploadBox({ setGeminiResult }) {
     setLoading(true);
     setMessage("");
 
-    // File upload api url
-    const HOST_URL =
-      import.meta.env.VITE_HOST_URL || `http://localhost:3000/upload`;
-
+    let data;
+    // function from "src/services/api.js"
     try {
-      // Fetch req with image & model_type
-      // Token in Auth header
-      const response = await fetch(HOST_URL, {
-        method: "POST",
-        body: formData,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      data = await uploadImage(formData);
+      const prediction = {
+        label: data.label,
+        confidence: data.confidence,
+      }
+
+      const addRec = await historyAPI.addRecord({
+        modelType: selectedModel,
+        prediction,
       });
+      
 
-      if (!response.ok) {
-        throw new Error("Failed to upload image");
-      }
-
-      const data = await response.json();
-
-      if (data.info) {
-        setGeminiResult(data); // Send answer to Result.jsx
-        setMessage("Image processed successfully!");
-        setAlertColor("success");
-      } else {
-        setMessage("No response from server.");
-      }
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error processing image.");
     } finally {
       setLoading(false);
+    }
+
+    if (data.info) {
+      setPredictionData(data); // Send data to Result.jsx
+      setMessage("Image processed successfully!");
+      setAlertColor("success");
+    } else {
+      setMessage("No response from server.");
     }
   };
 
