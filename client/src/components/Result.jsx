@@ -136,8 +136,9 @@ function Result({ predictionData }) {
                       <TbPercentage size={14} color="var(--text-muted)" />
                       <span
                         style={{
-                          fontSize: "0.8rem",
-                          color: "var(--text-muted)",
+                          fontSize: "0.85rem",
+                          color: "var(--accent-green)",
+                          minWidth: "110px",
                         }}
                       >
                         Confidence:
@@ -147,15 +148,10 @@ function Result({ predictionData }) {
                       className="fw-semibold"
                       style={{
                         fontSize: "0.85rem",
-                        color:
-                          predictionData.confidence <= 40
-                            ? "#f85149"
-                            : "var(--accent-green)",
+                        color: "var(--accent-green)",
                       }}
                     >
-                      {predictionData.confidence <= 40
-                        ? "Not Confident"
-                        : `${predictionData.confidence}%`}
+                      {predictionData.confidence}
                     </span>
                   </div>
                 )}

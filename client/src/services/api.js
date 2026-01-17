@@ -38,25 +38,6 @@ export const historyAPI = {
 
     return res;
   },
-
-  addRecord: async (data) => {
-    console.log(data);
-    const authHeader = await getAuthHeaders();
-    const res = await fetch(`${API_BASE}/history/`, {
-      method: "POST",
-      headers: {
-        ...authHeader,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (!res.ok) {
-      throw new Error("Failed to add record");
-    }
-
-    return await res.json();
-  },
 };
 
 // ---------------- UPLOAD -----------------

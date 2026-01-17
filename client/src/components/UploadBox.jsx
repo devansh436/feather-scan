@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../lib/firebase.js";
 import { BiUpload, BiRocket, BiArrowBack } from "react-icons/bi";
 import { GiBirdHouse, GiFlowerPot, GiLion } from "react-icons/gi";
 import { MdCheckCircle, MdFolder } from "react-icons/md";
 import { historyAPI, uploadImage } from "../services/api.js";
+
+// File upload constraints
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
 
 function UploadBox({ setPredictionData }) {
   const [file, setFile] = useState(null);
@@ -14,6 +18,15 @@ function UploadBox({ setPredictionData }) {
   const [alertColor, setAlertColor] = useState("danger");
   const [selectedModel, setSelectedModel] = useState("");
 
+  // Cleanup image preview URL to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      if (imagePreview) {
+        URL.revokeObjectURL(imagePreview);
+      }
+    };
+  }, [imagePreview]);
+
   const chooseSpecies = [
     { value: "bird", Icon: GiBirdHouse, label: "Bird" },
     { value: "plant", Icon: GiFlowerPot, label: "Plant", beta: true },
@@ -22,11 +35,30 @@ function UploadBox({ setPredictionData }) {
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
-    if (selectedFile) {
-      setFile(selectedFile);
-      setImagePreview(URL.createObjectURL(selectedFile));
-      setMessage("");
+    if (!selectedFile) return;
+
+    // Validate file type
+    if (!ALLOWED_TYPES.includes(selectedFile.type)) {
+      setMessage("Please upload a valid image file (JPG, PNG, or WEBP)");
+      setAlertColor("danger");
+      return;
     }
+
+    // Validate file size
+    if (selectedFile.size > MAX_FILE_SIZE) {
+      setMessage(`File size must be less than ${MAX_FILE_SIZE / 1024 / 1024}MB`);
+      setAlertColor("danger");
+      return;
+    }
+
+    // Revoke previous preview URL to prevent memory leak
+    if (imagePreview) {
+      URL.revokeObjectURL(imagePreview);
+    }
+
+    setFile(selectedFile);
+    setImagePreview(URL.createObjectURL(selectedFile));
+    setMessage("");
   };
 
   const handleModelSelection = (event) => {
@@ -41,59 +73,72 @@ function UploadBox({ setPredictionData }) {
 
     if (!file) {
       setMessage("Please select an image to upload!");
+      setAlertColor("danger");
       return;
     }
 
-    // Get firebase id token before file submit
-    const token = await auth.currentUser.getIdToken();
+    if (!selectedModel) {
+      setMessage("Please select a species type!");
+      setAlertColor("danger");
+      return;
+    }
 
     // Create multipart body to send over http to backend
     const formData = new FormData();
     formData.append("image", file);
-    formData.append("model_type", selectedModel);
+    formData.append("modelType", selectedModel);
 
     setLoading(true);
     setMessage("");
 
-    let data;
-    // function from "src/services/api.js"
     try {
-      data = await uploadImage(formData);
-      const prediction = {
-        label: data.label,
-        confidence: data.confidence,
-      }
-
-      const addRec = await historyAPI.addRecord({
-        modelType: selectedModel,
-        prediction,
-      });
+      // function from "src/services/api.js"
+      const data = await uploadImage(formData);
       
-
+      if (data && data.info) {
+        setPredictionData(data); // Send data to Result.jsx
+        setMessage("Image processed successfully!");
+        setAlertColor("success");
+      } else {
+        setMessage("No prediction data received from server.");
+        setAlertColor("warning");
+      }
     } catch (error) {
-      console.error("Error:", error);
-      setMessage("Error processing image.");
+      console.error("Upload error:", error);
+      setMessage(error.message || "Error processing image. Please try again.");
+      setAlertColor("danger");
     } finally {
       setLoading(false);
-    }
-
-    if (data.info) {
-      setPredictionData(data); // Send data to Result.jsx
-      setMessage("Image processed successfully!");
-      setAlertColor("success");
-    } else {
-      setMessage("No response from server.");
     }
   };
 
   function handleDrop(event) {
     event.preventDefault();
     const droppedFile = event.dataTransfer.files[0];
-    if (droppedFile) {
-      setFile(droppedFile);
-      setImagePreview(URL.createObjectURL(droppedFile));
-      setMessage("");
+    if (!droppedFile) return;
+
+    // Validate file type
+    if (!ALLOWED_TYPES.includes(droppedFile.type)) {
+      setMessage("Please upload a valid image file (JPG, PNG, or WEBP)");
+      setAlertColor("danger");
+      return;
     }
+
+    // Validate file size
+    if (droppedFile.size > MAX_FILE_SIZE) {
+      setMessage(`File size must be less than ${MAX_FILE_SIZE / 1024 / 1024}MB`);
+      setAlertColor("danger");
+      return;
+    }
+
+    // Revoke previous preview URL
+    if (imagePreview) {
+      URL.revokeObjectURL(imagePreview);
+    }
+
+    setFile(droppedFile);
+    setImagePreview(URL.createObjectURL(droppedFile));
+    setMessage("");
   }
   function handleDragOver(event) {
     event.preventDefault();

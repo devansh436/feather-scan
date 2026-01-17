@@ -18,14 +18,14 @@ export const getHistory = async (req: AuthRequest, res: Response) => {
     const page = Number(req.query.page) || 1;
     const skip = (page - 1) * limit;
 
-    // Fetch userHistory by userId (returns array, sort by creation date)
-    const userHistory = await History.find({ userId: uid })
+    // Fetch userHistory by uid (returns array, sort by creation date)
+    const userHistory = await History.find({ uid })
       .sort({ createdAt: -1 })
       .limit(limit)
       .skip(skip);
 
     // Get & send total count of history recs along w/ paginated data
-    const totalCount = await History.countDocuments({ userId: uid });
+    const totalCount = await History.countDocuments({ uid });
 
     res.status(200).json({
       page,
@@ -34,40 +34,40 @@ export const getHistory = async (req: AuthRequest, res: Response) => {
       userHistory
     }); // empty arr if no history
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(500).json({ error: "Failed to fetch records" });
   }
 };
 
 
-export const addRecord = async (req: AuthRequest, res: Response) => {
-  try {
-    // extract uid
-    const uid = req.user!.uid;
+// export const addRecord = async (req: AuthRequest, res: Response) => {
+//   try {
+//     // extract uid
+//     const uid = req.user!.uid;
     
-    // parse req.body safely (zod validates req body)
-    const parsed = addHistoryRecordSchema.safeParse(req.body);
+//     // parse req.body safely (zod validates req body)
+//     const parsed = addHistoryRecordSchema.safeParse(req.body);
 
-    if (!parsed.success) {
-      res.status(400).json({ error: "Invalid request body" });
-      return;
-    }
+//     if (!parsed.success) {
+//       res.status(400).json({ error: "Invalid request body" });
+//       return;
+//     }
     
-    const { modelType, prediction } = req.body;
+//     const { modelType, prediction } = req.body;
 
-    const history = await History.create({
-      userId: uid,
-      modelType,
-      prediction
-    });
+//     const history = await History.create({
+//       uid,
+//       modelType,
+//       prediction
+//     });
 
-    // 201 -> resource created successfully
-    res.status(201).json(history);
-  } catch (err) {
-    // console.log(err);
-    res.status(500).json({ error: "Failed to save history" });
-  }
-};
+//     // 201 -> resource created successfully
+//     res.status(201).json(history);
+//   } catch (err) {
+//     // console.log(err);
+//     res.status(500).json({ error: "Failed to save history" });
+//   }
+// };
 
 
 export const deleteRecord = async (req: AuthRequest, res: Response) => {
@@ -75,7 +75,7 @@ export const deleteRecord = async (req: AuthRequest, res: Response) => {
     const uid = req.user!.uid;
     const { doc_id } = req.params;
       
-    const record = await History.findOne({ _id: doc_id, userId: uid });
+    const record = await History.findOne({ _id: doc_id, uid });
 
     if (!record) {
       res.status(404).json({ error: "Record not found" });
@@ -83,7 +83,7 @@ export const deleteRecord = async (req: AuthRequest, res: Response) => {
     }
 
     await record.deleteOne();
-    res.status(204).json({ message: "Deleted successfully" });
+    res.status(200).json({ message: "Deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: "Failed to delete record" });
   }

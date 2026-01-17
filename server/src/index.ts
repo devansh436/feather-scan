@@ -14,6 +14,7 @@ import connectDB from "./config/db";
 import historyRoutes from './routes/history.routes';
 import uploadRoutes from './routes/upload.routes';
 import healthRoutes from './routes/health.routes';
+import userRoutes from './routes/user.routes';
 import env  from './config/env';
 
 connectDB();
@@ -27,6 +28,7 @@ app.use(express.json());
 app.use('/history', historyRoutes);
 app.use('/upload', uploadRoutes);
 app.use('/health', healthRoutes);
+app.use('/user', userRoutes);
 
 // test route
 app.get("/test", (req: Request, res: Response) => {

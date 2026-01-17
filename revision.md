@@ -12,10 +12,10 @@
 ## 0. src/middleware
 - client => middleware => route handler  
 - gateway that allows/denies access to backend apis  
-- two jobs:  
+- Roles:  
   a. Verify client id token with firebase server  
   b. Mount decoded token on HTTP request for downstream use  
-
+  c. Ensure user record exists in DB (uid, name, email, createdAt)
 ---
 
 ## 1. src/config/
@@ -83,4 +83,11 @@
 - frequently call: `History.find({ userId: "xyz" }).sort({ createdAt: -1 })`
 - thus, indexing on userId -> fast retrieval
 
-
+## Middleware
+ - middleware must NEVER return success responses, only errors
+- if it does, the request ends then & there
+- success -> next()
+- error -> err response
+- the backend assumes
+  1. incoming request is authenticated
+  2. user exists in db

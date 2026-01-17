@@ -12,7 +12,7 @@ import mongoose from 'mongoose';
 
 const historySchema = new mongoose.Schema(
   {
-    userId: {
+    uid: {
       type: String,
       required: true,
       index: true,
@@ -39,6 +39,6 @@ const historySchema = new mongoose.Schema(
 );
 
 // Indexing: speeds up frequent queries by letting DB avoid full scans.
-historySchema.index({ userId: 1, createdAt: -1 });
+historySchema.index({ uid: 1, createdAt: -1 });
 
 export default mongoose.model("History", historySchema);
