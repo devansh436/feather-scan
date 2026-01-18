@@ -28,7 +28,7 @@ function UserAccount() {
       setLoading(true);
       // func from api.js
       const data = await historyAPI.getHistory(currentPage, recordsPerPage);
-      console.log(data);
+      // console.log(data);
       setHistory(data.userHistory || []);
       setTotalPages(Math.ceil(data.totalCount / data.limit) || 1);
     } catch (error) {

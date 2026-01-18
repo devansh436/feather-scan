@@ -63,7 +63,7 @@ function UploadBox({ setPredictionData }) {
 
   const handleModelSelection = (event) => {
     setSelectedModel(event.target.value);
-    console.log(event.target.value);
+    // console.log(event.target.value);
   };
 
   // MAIN MASALAAAA
