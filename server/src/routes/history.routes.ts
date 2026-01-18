@@ -1,5 +1,5 @@
 /*
-  routes/history.ts
+  routes/history.routes.ts
   - creates all endpoints related to history entity (db table)
   - this includes get, post, update, del, etc.
   - export this router to mount it on top of main server
@@ -13,9 +13,6 @@ const router = Router();
 
 // All endpoints below go through middleware
 router.use(authMiddleware);
-
-// Insert record in DB
-// router.post('/', addRecord);
 
 // Get all records of given user
 router.get('/', getHistory);

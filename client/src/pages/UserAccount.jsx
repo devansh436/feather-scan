@@ -22,7 +22,7 @@ function UserAccount() {
     setIsVisible(true);
   }, []);
 
-  // Fetchz history using api
+  // Fetch history using api
   const fetchHistory = async () => {
     try {
       setLoading(true);
@@ -38,7 +38,7 @@ function UserAccount() {
     }
   };
 
-  // fetchz user history if user exists
+  // fetch user history if user exists
   useEffect(() => {
     if (user) {
       fetchHistory();
@@ -211,7 +211,7 @@ function UserAccount() {
                                 fontSize: "0.8rem",
                               }}
                             >
-                              Confidence: {record.prediction.confidence}
+                              Confidence: {record.prediction.confidence}% 
                             </p>
                           )}
                           <p

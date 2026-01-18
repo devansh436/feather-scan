@@ -7,7 +7,7 @@ import { MdCheckCircle, MdFolder } from "react-icons/md";
 import { historyAPI, uploadImage } from "../services/api.js";
 
 // File upload constraints
-const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
 
 function UploadBox({ setPredictionData }) {

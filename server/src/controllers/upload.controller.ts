@@ -63,7 +63,7 @@ export const uploadImage = async (req: AuthRequest, res: Response) => {
     const validateResponse = MLPredictionSchema.safeParse(response);
 
     if (!validateResponse.success) {
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: "Prediction validation failed" });
       return;
     }
 
@@ -84,13 +84,11 @@ export const uploadImage = async (req: AuthRequest, res: Response) => {
       label: response.label,
       confidence: response.confidence,
       info: response.info,
-      history
     });
   } catch (err) {
     // console.error(err);
     if (!res.headersSent) {
       res.status(500).json({ error: "Server error" });
-      return
     }
     return;
   }

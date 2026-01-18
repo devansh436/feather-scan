@@ -1,0 +1,30 @@
+/*
+  - src/app.ts
+    - creates express app 
+    - defines entry points & routes
+*/
+
+import express, { Request, Response } from "express"
+import cors from "cors";
+import historyRoutes from './routes/history.routes';
+import uploadRoutes from './routes/upload.routes';
+import healthRoutes from './routes/health.routes';
+import userRoutes from './routes/user.routes';
+
+// Create express app
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+// routes
+app.use('/history', historyRoutes);
+app.use('/upload', uploadRoutes);
+app.use('/health', healthRoutes);
+app.use('/user', userRoutes);
+
+// test route
+app.get("/test", (req: Request, res: Response) => {
+  res.status(200).send("OK");
+});
+
+export default app;

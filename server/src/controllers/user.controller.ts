@@ -3,7 +3,7 @@ import { Response } from 'express';
 import { AuthRequest } from '../middlewares/auth';
 
 // Gets user data (name, email, uid)
-export const getUserRecords = async (req: AuthRequest, res: Response) => {
+export const getUserRecord = async (req: AuthRequest, res: Response) => {
   try {
     const user = req.user!;
     const { uid } = user;
