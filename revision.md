@@ -12,10 +12,10 @@
 ## 0. src/middleware
 - client => middleware => route handler  
 - gateway that allows/denies access to backend apis  
-- two jobs:  
+- Roles:  
   a. Verify client id token with firebase server  
   b. Mount decoded token on HTTP request for downstream use  
-
+  c. Ensure user record exists in DB (uid, name, email, createdAt)
 ---
 
 ## 1. src/config/
@@ -56,6 +56,8 @@
 
 ---
 
+<br>
+<br>
 
 # Frontend Best Practices
 
@@ -64,7 +66,8 @@
 - the only place that knows how to talk to backend
 - single source of truth, single base url, DRY
 
----
+<br>
+<br>
 
 # Other imp concepts
 
@@ -83,4 +86,25 @@
 - frequently call: `History.find({ userId: "xyz" }).sort({ createdAt: -1 })`
 - thus, indexing on userId -> fast retrieval
 
+## Middleware
+- middleware must NEVER return success responses, only errors
+- if it does, the request ends then & there
+- success -> next()
+- error -> err response
+- the backend assumes
+  1. incoming request is authenticated
+  2. user exists in db
 
+## Testing
+- to prove that ur code behaves as expected
+- hit an endpoint w known input -> assert response (status,body,msg)
+- if assertion fails -> test fails -> u catch bugs early
+- Types: 
+  - Unit Testing: Single function
+  - Integration Testing: Test a group of functions; route + middleware (m. imp)
+  - End-2-End: Full app + DB
+- Tech Stack:
+  - Jest: Test runner + assertions
+  - Supertest: Fake HTTP requests to Express
+- Test Driven Dev (TDD):
+  - create tests -> tests fail -> write code to pass it -> refactor -> repeat

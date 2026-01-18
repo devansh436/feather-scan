@@ -98,26 +98,25 @@ Rules:
 # ---------- ROUTES ----------
 @app.post("/predict")
 async def predict(
-    model_type: str = Form(...),
+    modelType: str = Form(...),
     image: UploadFile = File(...)
 ):
-        
-    if model_type not in ["animal", "bird", "plant"]:
+    if modelType not in ["animal", "bird", "plant"]:
         raise HTTPException(400, "Invalid model type")
     
     image_bytes = await image.read()
-    if len(image_bytes) > 10 * 1024 * 1024:
+    if len(image_bytes) > 5 * 1024 * 1024:
         raise HTTPException(status_code=413, detail="File too large.")
     
     image = Image.open(io.BytesIO(image_bytes)).convert("RGB")
     
     try:
-        if model_type == 'animal':
+        if modelType == 'animal':
             label, confidence = classify_animal(image)
         else:
-            label, confidence = classify_bird_or_plant(image, model_type)
+            label, confidence = classify_bird_or_plant(image, modelType)
         
-        species_info = await get_species_info(model_type, label, confidence)
+        species_info = await get_species_info(modelType, label, confidence)
 
         return {
             "label": label,

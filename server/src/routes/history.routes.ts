@@ -6,7 +6,7 @@
 */
 import { Router } from 'express';
 import authMiddleware from '../middlewares/auth';
-import { addRecord, deleteRecord, getHistory } from '../controllers/history.controller';
+import { deleteRecord, getHistory } from '../controllers/history.controller';
 
 // A mini express app - lets u handle routes
 const router = Router();
@@ -15,7 +15,7 @@ const router = Router();
 router.use(authMiddleware);
 
 // Insert record in DB
-router.post('/', addRecord);
+// router.post('/', addRecord);
 
 // Get all records of given user
 router.get('/', getHistory);

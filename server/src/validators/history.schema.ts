@@ -7,10 +7,11 @@
 
 import { z } from 'zod';
 
-export const addHistoryRecordSchema = z.object({ 
+export const addHistoryRecordSchema = z.object({
   modelType: z.string().min(1),
   prediction: z.object({
     label: z.string(),
-    confidence: z.number(),
+    confidence: z.number().max(100),
   }),
 });
+

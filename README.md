@@ -21,7 +21,7 @@ User (Browser)
     ▼
 Client (React)
     │
-    ├─> 2. POST /upload → FormData(image, model_type)
+    ├─> 2. POST /upload → FormData(image, modelType)
     │
     ▼
 Server (Express:3000)
@@ -96,7 +96,7 @@ npm run client  # React UI (port 5173)
 - `GET /test` - Health check
 
 **Model (FastAPI)**
-- `POST /predict` - Classify image (params: `file`, `model_type`)
+- `POST /predict` - Classify image (params: `file`, `modelType`)
 - `GET /test` - Health check
 
 ## Features

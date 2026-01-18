@@ -22,6 +22,22 @@ function UserAccount() {
     setIsVisible(true);
   }, []);
 
+  // Fetchz history using api
+  const fetchHistory = async () => {
+    try {
+      setLoading(true);
+      // func from api.js
+      const data = await historyAPI.getHistory(currentPage, recordsPerPage);
+      // console.log(data);
+      setHistory(data.userHistory || []);
+      setTotalPages(Math.ceil(data.totalCount / data.limit) || 1);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // fetchz user history if user exists
   useEffect(() => {
     if (user) {
@@ -29,46 +45,26 @@ function UserAccount() {
     }
   }, [user, currentPage]);
 
-  // Fetchz history using api
-  const fetchHistory = async () => {
-    try {
-      setLoading(true);
-      
-      // func from api.js
-      const data = await historyAPI.getHistory(currentPage, recordsPerPage);
-      console.log(data);
-      setHistory(data.userHistory || []);
-      setTotalPages(Math.ceil(data.totalCount / data.limit) || 1);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching history:", error);
-      setLoading(false);
-    }
-  };
-
   const handleDelete = async (recordId) => {
     try {
       const res = await historyAPI.deleteRecord(recordId);
-
-      if (res.ok) {
-        fetchHistory();
-      }
+      if (res.ok) fetchHistory();
     } catch (error) {
-      console.error("Error deleting record:", error);
+      console.error(error);
     }
   };
 
   const handlePreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -87,7 +83,9 @@ function UserAccount() {
 
   return (
     <div
-      className={`container-fluid page-transition ${isVisible ? 'fade-in' : ''}`}
+      className={`container-fluid page-transition ${
+        isVisible ? "fade-in" : ""
+      }`}
       style={{
         minHeight: "100vh",
         background: "var(--dark-bg)",
@@ -213,8 +211,7 @@ function UserAccount() {
                                 fontSize: "0.8rem",
                               }}
                             >
-                              Confidence:{" "}
-                              {(record.prediction.confidence * 100).toFixed(1)}%
+                              Confidence: {record.prediction.confidence}
                             </p>
                           )}
                           <p

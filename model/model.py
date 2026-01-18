@@ -61,9 +61,9 @@ def clip_classify(image: Image.Image, labels: list[str]):
 
 
 # ---------- PREDICTION FUNCTIONS ----------
-def classify_bird_or_plant(image: Image.Image, model_type: str):
-    processor = MODELS[model_type]["processor"]
-    model = MODELS[model_type]["model"]
+def classify_bird_or_plant(image: Image.Image, modelType: str):
+    processor = MODELS[modelType]["processor"]
+    model = MODELS[modelType]["model"]
 
     inputs = processor(images=image, return_tensors="pt").to(device)
 
