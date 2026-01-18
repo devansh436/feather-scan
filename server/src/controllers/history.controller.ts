@@ -39,37 +39,6 @@ export const getHistory = async (req: AuthRequest, res: Response) => {
   }
 };
 
-
-// export const addRecord = async (req: AuthRequest, res: Response) => {
-//   try {
-//     // extract uid
-//     const uid = req.user!.uid;
-    
-//     // parse req.body safely (zod validates req body)
-//     const parsed = addHistoryRecordSchema.safeParse(req.body);
-
-//     if (!parsed.success) {
-//       res.status(400).json({ error: "Invalid request body" });
-//       return;
-//     }
-    
-//     const { modelType, prediction } = req.body;
-
-//     const history = await History.create({
-//       uid,
-//       modelType,
-//       prediction
-//     });
-
-//     // 201 -> resource created successfully
-//     res.status(201).json(history);
-//   } catch (err) {
-//     // console.log(err);
-//     res.status(500).json({ error: "Failed to save history" });
-//   }
-// };
-
-
 export const deleteRecord = async (req: AuthRequest, res: Response) => {
   try {
     const uid = req.user!.uid;
