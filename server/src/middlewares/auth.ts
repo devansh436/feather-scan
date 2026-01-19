@@ -18,11 +18,11 @@ export interface AuthRequest extends Request {
 }
 
 // A function that extracts & attaches 'user' token to HTTP requests
-const authMiddleware = async (
+export default async function authMiddleware(
   req: AuthRequest,
   res: Response,
   next: NextFunction
-) => {
+) {
   try {
     const authHeader = req.headers.authorization;
 
@@ -58,4 +58,3 @@ const authMiddleware = async (
   }
 };
 
-export default authMiddleware;

@@ -11,8 +11,10 @@
 import connectDB from "./config/db";
 import env  from './config/env';
 import app from './app';
+import { initFirebase } from "./config/firebase";
 
 connectDB();
+initFirebase();
 
 // LISTEN
 const PORT = Number(env.PORT) || 3000;
