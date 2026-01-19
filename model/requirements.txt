@@ -2,7 +2,7 @@ transformers
 torch
 Pillow
 fastapi
-uvicorn
+uvicorn[standard]
 python-multipart
-wikipedia
-json
+python-dotenv
+open_clip_torch
