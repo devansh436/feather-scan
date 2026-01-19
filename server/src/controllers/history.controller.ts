@@ -33,7 +33,6 @@ export const getHistory = async (req: AuthRequest, res: Response) => {
       userHistory
     }); // empty arr if no history
   } catch (err) {
-    // console.log(err);
     res.status(500).json({ error: "Failed to fetch records" });
   }
 };
