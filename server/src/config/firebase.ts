@@ -3,15 +3,22 @@
   - initialise admin and export
 */
 
-import serviceAccount from '../../serviceAccountKey.json';
 import admin from 'firebase-admin';
 
-// Initialise firebase app
-if (admin.apps.length === 0) {
+let initialized = false;
+
+export const initFirebase = async () => {
+  if (initialized || process.env.NODE_ENV === 'test') return;
+
+  const serviceAccountKey = require('../../serviceAccountKey.json');
+  // Initialise firebase app
   admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount as admin.ServiceAccount)
+    credential: admin.credential.cert(
+      serviceAccountKey as admin.ServiceAccount
+    ),
   });
+
+  initialized = true;
 }
 
-// export already initialised admin app
 export default admin;

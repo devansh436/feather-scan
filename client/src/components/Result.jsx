@@ -151,7 +151,7 @@ function Result({ predictionData }) {
                         color: "var(--accent-green)",
                       }}
                     >
-                      {predictionData.confidence}
+                      {predictionData.confidence}%
                     </span>
                   </div>
                 )}

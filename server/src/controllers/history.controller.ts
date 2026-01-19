@@ -6,7 +6,6 @@
 import { AuthRequest } from "../middlewares/auth";
 import { Response } from "express";
 import History from "../models/History.models";
-import { addHistoryRecordSchema } from "../validators/history.schema";
 
 export const getHistory = async (req: AuthRequest, res: Response) => {
   try {
@@ -34,7 +33,6 @@ export const getHistory = async (req: AuthRequest, res: Response) => {
       userHistory
     }); // empty arr if no history
   } catch (err) {
-    // console.log(err);
     res.status(500).json({ error: "Failed to fetch records" });
   }
 };
@@ -52,7 +50,7 @@ export const deleteRecord = async (req: AuthRequest, res: Response) => {
     }
 
     await record.deleteOne();
-    res.status(200).json({ message: "Deleted successfully" });
+    res.status(204).send();
   } catch (err) {
     res.status(500).json({ error: "Failed to delete record" });
   }
