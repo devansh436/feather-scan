@@ -1,5 +1,8 @@
-# Feather Scan
+[![Backend Tests](https://github.com/devansh436/feather-scan/actions/workflows/test.yml/badge.svg?branch=main&event=pull_request)](https://github.com/devansh436/feather-scan/actions/workflows/test.yml)
+![Node](https://img.shields.io/badge/node-24.1.0-brightgreen)
+![License](https://img.shields.io/github/license/devansh436/feather-scan)
 
+# Feather Scan
 ## Overview
 
 A full-stack ML application that classifies birds, plants, and animals from images and provides detailed species information using deep learning and AI.
