@@ -7,6 +7,7 @@ import { MLPredictionSchema } from "../validators/prediction.schema";
 
 export const uploadImage = async (req: AuthRequest, res: Response) => {
   try {
+    const file = (req as any).file
     if (!req.file) {
       res.status(400).json({ error: "No file uploaded" });
       return;
