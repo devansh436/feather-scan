@@ -15,6 +15,7 @@ import UserModel from '../models/User.models';
 // Create a child class of 'Request' containing additional 'user' prop
 export interface AuthRequest extends Request {
   user?: admin.auth.DecodedIdToken;
+  file?: Express.Multer.File;
 }
 
 // A function that extracts & attaches 'user' token to HTTP requests
