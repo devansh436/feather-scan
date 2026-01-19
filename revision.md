@@ -104,4 +104,7 @@
   - Supertest: Fake HTTP requests to Express
 - Test Coverage:
   - how much of ur code gets executed when performing tests
-  - 
+
+## Continuous Integration
+- the process of merging code into main branch frequently & ensure that the codebase is in a workable state
+- each merge triggers an automatic build & test process
