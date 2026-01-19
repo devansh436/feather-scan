@@ -6,3 +6,4 @@ uvicorn[standard]
 python-multipart
 python-dotenv
 open_clip_torch
+google-genai
