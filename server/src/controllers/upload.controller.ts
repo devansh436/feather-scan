@@ -4,6 +4,7 @@ import FormData from "form-data";
 import axios from 'axios';
 import History from "../models/History.models";
 import { MLPredictionSchema } from "../validators/prediction.schema";
+import env from "../config/env";
 
 export const uploadImage = async (req: AuthRequest, res: Response) => {
   try {
@@ -13,6 +14,21 @@ export const uploadImage = async (req: AuthRequest, res: Response) => {
       return;
     }
 
+    // S0. CHECK ML SERVICE AVAILABILITY (if model is down, show dummy result)
+    if (!env.FAST_API_URL) {
+      return {
+        label: "Tulasi",
+        confidence: 0.94,
+        info: {
+          "name": "Tulsi",
+          "scientific_name": "Ocimum tenuiflorum",
+          "habitat": "Home gardens, pots and temple courtyards with regular watering and bright light in warm climates",
+          "origin": "Native to the Indian subcontinent and central to religious and medicinal cultivation across South Asia",
+          "description": "A revered basil species with strong aromatic leaves used in daily worship and traditional remedies for respiratory and digestive health; commonly cultivated in households."
+        }
+      };
+    }
+
     // S1. SEND IMAGE TO MODEL
     // Create formData for predict request to FastAPI
     const formData = new FormData();
@@ -20,8 +36,8 @@ export const uploadImage = async (req: AuthRequest, res: Response) => {
     const image = req.file.buffer;
 
     if (modelType !== "bird" &&
-        modelType !== "animal" &&
-        modelType !== "plant"
+      modelType !== "animal" &&
+      modelType !== "plant"
     ) {
       res.status(400).json({ error: "Invalid modelType" });
       return;

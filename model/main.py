@@ -143,3 +143,4 @@ async def get_species_info(
 async def health():
     return {"status" : "OK"}
 
+print(f'Listening on http://localhost:5000')
