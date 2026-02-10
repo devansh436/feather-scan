@@ -14,6 +14,7 @@ The project focuses on backend architecture, service separation, and reliable AP
 
 ## 📋 Table of Contents
 - [Overview](#overview)
+- [Application Snapshots](#snapshots)
 - [Features](#features)
 - [Architecture](#architecture)
 - [Tech Stack](#tech-stack)
@@ -33,6 +34,23 @@ The project focuses on backend architecture, service separation, and reliable AP
 It consists of a **React frontend**, an **Express + TypeScript backend**, and a **FastAPI-based ML inference service**. The backend handles **authentication, validation, file uploads, saving user prediction history in the database**, and mediates all communication with the ML service.
 
 Inference uses **pretrained Hugging Face and BioCLIP models**, with **bird predictions enriched using the Gemini API**.
+
+
+## Application Snapshots
+### Login Page
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/15761b43-0541-46c9-b71b-1a8015859464" alt="User Login Page" width="800"/>
+</p>
+
+### Prediction Result
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/aff8d154-61e1-4b1b-b8ea-db0113ab1cf4" alt="Prediction result screen" width="800"/>
+</p>
+
+### User History (paginated)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/2ac9c335-24b9-4cf6-b1cf-d17f9ce9812b" alt="Paginated prediction history" width="800"/>
+</p>
 
 
 ## Features
@@ -76,7 +94,7 @@ graph TD
 
 ### Data Flow
 1. The client uploads an image along with the selected model type.
-2. Backend recieves request; authentication is handled via Firebase. The backend verifies ID tokens and associates predictions with user history.
+2. Backend receives request; authentication is handled via Firebase. The backend verifies ID tokens and associates predictions with user history.
 3. The image is forwarded to the ML service for inference:
    - Birds and plants use pretrained Hugging Face models.
    - Animals use BioCLIP for zero-shot classification.
@@ -274,7 +292,7 @@ feather-scan/
 │   ├── src/
 │   │   ├── __tests__/     # Testing setup & files
 │   │   ├── routes/        # API routes
-│   │   ├── config/        # Configure DB, Auth & env variables
+│   │   ├── config/        # Configure database, Auth & env variables
 │   │   ├── controllers/   # Implementation of routes (History, Upload, User, etc.) 
 │   │   ├── middleware/    # Auth middleware
 │   │   ├── models/        # User & History models
