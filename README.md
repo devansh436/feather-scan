@@ -204,7 +204,7 @@ GEMINI_MODEL=gemini-2.5-flash
 
 ## 🏃 Running the Application
 
-### Option 1: Run All Services Concurrently (Recommended)
+#### Run All Services Concurrently
 
 From the root directory:
 
@@ -217,21 +217,6 @@ This starts all three services simultaneously:
 - 🔌 Server: http://localhost:3000
 - 🤖 Model: http://localhost:5000
 
-
-### Option 2: Run Services Individually
-
-In separate terminal windows:
-
-```bash
-# Terminal 1 - ML Service
-npm run model
-
-# Terminal 2 - Backend Server
-npm run server
-
-# Terminal 3 - Frontend Client
-npm run client
-```
 
 ### Accessing the Application
 
@@ -249,6 +234,7 @@ http://localhost:5173
 Accepts an image and model type, returns the predicted label and confidence.
 
 **Request**
+- contains auth token
 - `multipart/form-data`
 - `file`: image (jpg/png)
 - `modelType`: `bird | plant | animal`
@@ -281,7 +267,12 @@ feather-scan/
 ├── client/                 # Frontend React application
 │   ├── src/
 │   │   ├── components/    # React components
+│   │   ├── context/       # Auth context
+│   │   ├── data.js/       # Static data
+│   │   ├── lib/           # firebase setup
+│   │   ├── services/      # API calls & auth functions
 │   │   ├── pages/         # Page components
+│   │   ├── components/    # React components
 │   │   ├── App.jsx        # Main app component
 │   │   └── main.jsx       # Entry point
 │   ├── public/            # Static assets
@@ -290,9 +281,14 @@ feather-scan/
 │
 ├── server/                # Backend Express API
 │   ├── src/
+│   │   ├── __tests__/     # Testing setup & files
 │   │   ├── routes/        # API routes
-│   │   ├── middleware/    # Custom middleware
-│   │   ├── utils/         # Helper functions
+│   │   ├── config/        # Configure DB, Auth & env variables
+│   │   ├── controllers/   # Implementation of routes (History, Upload, User, etc.) 
+│   │   ├── middleware/    # Auth middleware
+│   │   ├── models/        # User & History models
+│   │   ├── validators/    # Model response validation via Zod
+│   │   ├── app.ts         # Express app using created routes
 │   │   └── index.ts       # Server entry point
 │   ├── package.json
 │   └── tsconfig.json      # TypeScript config
@@ -301,7 +297,7 @@ feather-scan/
 │   ├── data/              # Static species data
 │   ├── main.py            # FastAPI application
 │   ├── model.py           # Model loading & inference
-│   └── requirements. txt   # Python dependencies
+│   └── requirements. txt  # Python dependencies
 │
 ├── .github/
 │   └── workflows/         # CI/CD workflows
@@ -338,5 +334,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Built with ❤️ by [devansh436](https://github.com/devansh436)**
-
-*If you found this project useful, consider giving it a ⭐! *
