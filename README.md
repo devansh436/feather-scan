@@ -10,75 +10,73 @@ A full-stack image classification web application that identifies birds, plants,
 
 The project focuses on backend architecture, service separation, and reliable API design rather than training custom ML models.
 
-![Feather Scan Demo](https://via.placeholder.com/800x400/1e293b/ffffff? text=Feather+Scan+Demo+Screenshot)
+
 
 ## 📋 Table of Contents
-- [Overview](#-overview)
-- [Features](#-features)
-- [Architecture](#-architecture)
-- [Tech Stack](#-tech-stack)
-- [Prerequisites](#-prerequisites)
-- [Installation](#-installation)
-- [Configuration](#-configuration)
-- [Running the Application](#-running-the-application)
-- [API Documentation](#-api-documentation)
-- [Project Structure](#-project-structure)
-- [Deployment](#-deployment)
-- [License](#-license)
+- [Overview](#overview)
+- [Features](#features)
+- [Architecture](#architecture)
+- [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Running the Application](#running-the-application)
+- [API Documentation](#api-documentation)
+- [Project Structure](#project-structure)
+- [Testing](#testing)
+- [License](#license)
 
 ## Overview
 
-Feather Scan is a three-service web application that allows users to upload images and classify them as birds, plants, or animals.
+**Feather Scan** is a three-service web application for classifying uploaded images as **birds, plants, or animals**.
 
-The system is split into a React frontend, an Express + TypeScript backend, and a FastAPI-based ML inference service. 
-The backend acts as a mediator between the client and the ML service.  
-It handles authentication, user history persistence, request validation, file uploads, and response shaping.
+It consists of a **React frontend**, an **Express + TypeScript backend**, and a **FastAPI-based ML inference service**. The backend handles **authentication, validation, file uploads, saving user prediction history in the database**, and mediates all communication with the ML service.
 
-Pretrained models from Hugging Face and BioCLIP are used for inference, while Gemini API is used to enrich bird predictions with additional contextual information.
+Inference uses **pretrained Hugging Face and BioCLIP models**, with **bird predictions enriched using the Gemini API**.
+
 
 ## Features
 ### User-Facing
 - Upload an image of (up to 5 MB) and classify it as a bird, plant, or animal
-- Bird species identification using a pretrained classifier
-- Plant identification using a medicinal plant model
-- Animal classification using BioCLIP (zero-shot)
-- Species information enrichment using Gemini API (birds only)
-- Confidence score returned with each prediction
+- Animal & plant species information retrieval from database, and bird species enrichment using Gemini API
+- Confidence score & additional info returned with each prediction
 
 ### Engineering Highlights
 - Clear separation between frontend, backend, and ML services
 - Centralized request validation and file handling in the backend
-- Backend-to-ML communication via HTTP APIs
+- Backend-to-ML communication via HTTP REST APIs
 - FastAPI-based ML inference service
-- Automated backend tests using Jest and Supertest
+- Automated backend tests using Jest and Supertest on push using Github Actions
 
 
 ## Architecture
 Feather Scan follows a service-separated architecture to keep concerns isolated and the system easy to reason about.
 
-### System Design
-```
-┌───────────────┐
-│ Frontend      │ React + Vite (5173)
-└───────┬───────┘
-        │ POST /upload
-┌───────▼───────┐
-│ Backend API   │ Express + TypeScript (3000)
-└───────┬───────┘
-        │ POST /predict
-┌───────▼───────┐
-│ ML Service    │ FastAPI (5000)
-└───────────────┘
+### Architecture Diagram
+```mermaid
+graph TD
+    Client[Frontend<br/>React + Vite<br/>:5173]
+    Backend[Backend API<br/>Express + TypeScript<br/>:3000]
+    ML[ML Inference Service<br/>FastAPI<br/>:5000]
+    DB[(MongoDB)]
+    Auth[Firebase]
+    Info[JSON DB]
+
+    Client -->|POST /upload| Backend
+    Backend -->|JSON Response| Client
+
+    Backend -->|POST /predict| ML
+    ML -->|Prediction Result| Backend
+    ML -->|Fetch Species Info| Info
+
+    Backend -->|Validate & Store History| DB
+    Backend -->|Verify Token| Auth
 
 ```
-The backend acts as a boundary layer, preventing the client from directly interacting with the ML service and allowing validation, authentication, and future extensibility without changing the client.
-
-
-![Architecture Diagram](https://via.placeholder.com/800x300/1e293b/ffffff?text=Three-Tier+Architecture+Flow)
 
 ### Data Flow
 1. The client uploads an image along with the selected model type.
-2. The backend validates the request and handles file processing.
+2. Backend recieves request; authentication is handled via Firebase. The backend verifies ID tokens and associates predictions with user history.
 3. The image is forwarded to the ML service for inference:
    - Birds and plants use pretrained Hugging Face models.
    - Animals use BioCLIP for zero-shot classification.
@@ -115,15 +113,13 @@ The backend acts as a boundary layer, preventing the client from directly intera
 
 
 ### ML Models
-| Category | Model | Source |
-|----------|-------|--------|
-| Birds | `chriamue/bird-species-classifier` | Hugging Face |
-| Plants | `dima806/medicinal_plants_image_detection` | Hugging Face |
-| Animals | `imageomics/bioclip-2` | BioCLIP |
+| Category | Model | Source |    Type    |
+|----------|-------|--------|------------|
+| Birds | `chriamue/bird-species-classifier` | Hugging Face | Pretrained classifier |
+| Plants | `dima806/medicinal_plants_image_detection` | Hugging Face | Pretrained classifier |
+| Animals | `imageomics/bioclip-2` | BioCLIP | Zero Shot |
 
-These pretrained models were chosen to prioritize system design and integration over custom model training.
-
-## 📦 Prerequisites
+## Prerequisites
 
 Before you begin, ensure you have the following installed:
 
@@ -133,10 +129,7 @@ Before you begin, ensure you have the following installed:
 - **pip** - Python package manager
 - **Git** - Version control
 
-**Optional but recommended:**
-- **Virtual environment** (venv or conda) for Python dependencies
-
-## 🚀 Installation
+## Installation
 
 ### 1. Clone the Repository
 
@@ -175,14 +168,14 @@ pip install -r requirements.txt
 cd ..
 ```
 
-## ⚙️ Configuration
+## Configuration
 
 ### Environment Variables
 Create `.env` files in the respective directories:
 
 #### `client/.env`
 ```env
-VITE_API_BASE=http://localhost:3000/upload
+VITE_API_BASE=http://localhost:3000
 VITE_FIREBASE_API_KEY=<your-key>
 VITE_FIREBASE_AUTH_DOMAIN=example-project.firebaseapp.com
 VITE_FIREBASE_PROJECT_ID=example-project-a1b2c3
@@ -202,7 +195,7 @@ GEMINI_API_KEY=your_gemini_api_key_here
 GEMINI_MODEL=gemini-2.5-flash
 ```
 
-## 🏃 Running the Application
+## Running the Application
 
 #### Run All Services Concurrently
 
@@ -227,7 +220,7 @@ http://localhost:5173
 
 ![Application Interface](https://via.placeholder.com/800x450/1e293b/ffffff? text=Upload+Interface+Screenshot)
 
-## API (Backend)
+## API documentation
 
 ### POST /upload
 
@@ -248,7 +241,6 @@ Accepts an image and model type, returns the predicted label and confidence.
   "info": {
     "name": "Bald Eagle",
     "scientific_name": "Haliaeetus leucocephalus",
-    "confidence": 97.3,
     "habitat": "Near large bodies of open water, forests",
     "origin": "North America",
     "description": "A large bird of prey known for its white head and tail."
@@ -259,7 +251,7 @@ Accepts an image and model type, returns the predicted label and confidence.
 API details are intentionally kept minimal, as the backend is not intended for third-party consumption.
 
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 feather-scan/
@@ -272,7 +264,6 @@ feather-scan/
 │   │   ├── lib/           # firebase setup
 │   │   ├── services/      # API calls & auth functions
 │   │   ├── pages/         # Page components
-│   │   ├── components/    # React components
 │   │   ├── App.jsx        # Main app component
 │   │   └── main.jsx       # Entry point
 │   ├── public/            # Static assets
@@ -297,7 +288,7 @@ feather-scan/
 │   ├── data/              # Static species data
 │   ├── main.py            # FastAPI application
 │   ├── model.py           # Model loading & inference
-│   └── requirements. txt  # Python dependencies
+│   └── requirements.txt  # Python dependencies
 │
 ├── .github/
 │   └── workflows/         # CI/CD workflows
@@ -308,7 +299,7 @@ feather-scan/
 ```
 
 
-## 🧪 Testing
+## Testing
 
 Run backend tests: 
 
@@ -327,10 +318,9 @@ Tests are automatically run on push via GitHub Actions.
 - Centralized validation and file handling in the backend to avoid exposing the ML service.
 - Implemented backend testing early using Jest and Supertest to ensure API stability.
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
----
 
 **Built with ❤️ by [devansh436](https://github.com/devansh436)**
